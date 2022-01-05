@@ -6,6 +6,8 @@ public class Cell {
     private int x;
     private int y;
 
+    Maze maze;
+
     private static int WIDTH;
     private static int HEIGHT;
     protected Hashtable<String, String> walls;
@@ -24,20 +26,48 @@ public class Cell {
      * @param x the initial x-coordinate for the cell
      * @param y the initial y-coordinate for the cell
      */
-    public Cell(int x, int y) {
-            this.walls = new Hashtable<>();
-            walls.put("N", "T"); walls.put("S", "T"); walls.put("W", "T"); walls.put("E", "T");
+    public Cell(int x, int y, Maze maze) {
+        this.walls = new Hashtable<>();
+        walls.put("N", "T"); walls.put("S", "T"); walls.put("W", "T"); walls.put("E", "T");
 
-            wallList.put("N", "S"); wallList.put("S", "N"); wallList.put("W", "E"); wallList.put("E", "W");
+        wallList.put("N", "S"); wallList.put("S", "N"); wallList.put("W", "E"); wallList.put("E", "W");
+
+        this.maze = maze;
 
         int tickCount = 0;
             }
 
-    public void removeWall(String wall, Cell other) {
+    public void removeWall(String wall) {
             this.walls.put(wall, "F");
-
-            other.walls.put(Cell.wallList.get(wall), "F");
+            Cell otherCell = null;
+            switch (wall) {
+                case "N":
+                    if (y != 0) {
+                        otherCell = maze.getCell(x, y-1);
+                    }
+                    break;
+                case "S":
+                    if (y != maze.getSize() - 1) {
+                        otherCell = maze.getCell(x, y+1);
+                    }
+                    break;
+                case "W":
+                    if (x != 0) {
+                        otherCell = maze.getCell(x-1, y);
+                    }
+                    break;
+                case "E":
+                    if (x != maze.getSize() - 1) {
+                        otherCell = maze.getCell(x+1, y);
+                    }
+                    break;
+                default:
+                    break;
             }
+            if (otherCell != null) {
+                otherCell.walls.put(Cell.wallList.get(wall), "F");
+            }
+    }
 
     public int getX() {
         return x;
