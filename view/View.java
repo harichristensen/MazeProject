@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.JFrame;
+import java.awt.*;
 
 
 public class View extends JFrame{
@@ -12,6 +13,8 @@ public class View extends JFrame{
         setSize(WIDTH, HEIGHT);
         ViewPanel viewPanel = new ViewPanel();
         viewPanel.setSize(WIDTH, HEIGHT);
+        viewPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        viewPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
         add(viewPanel);
     }
 
