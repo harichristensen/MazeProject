@@ -1,8 +1,5 @@
 package view;
 
-import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 
 
@@ -18,4 +15,5 @@ public class View extends JFrame{
         add(viewPanel);
     }
 
+    public static final long serialVersionUID = 1;
 }
