@@ -11,7 +11,7 @@ public class ViewPanel extends JPanel {
 
     public ViewPanel() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-        add(Box.createVerticalStrut(30));
+        add(Box.createVerticalStrut(5));
 
 
 
@@ -24,7 +24,7 @@ public class ViewPanel extends JPanel {
         title.setMaximumSize(title.getPreferredSize());
         add(title);
 
-        add(Box.createVerticalStrut(30));
+        add(Box.createVerticalStrut(5));
 
         Dimension ButtonDimension = new Dimension();
         ButtonDimension.setSize(500, 500);
@@ -68,6 +68,8 @@ public class ViewPanel extends JPanel {
             MazeView mazeView = new MazeView(100);
         });
         add(button100);
+
+        add(Box.createVerticalStrut(30));
 
         setVisible(true);
     }

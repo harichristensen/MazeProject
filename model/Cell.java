@@ -3,8 +3,8 @@ package model;
 import java.util.*;
 
 public class Cell {
-    private int x;
-    private int y;
+    protected int x;
+    protected int y;
 
     Maze maze;
 
@@ -27,6 +27,8 @@ public class Cell {
      * @param y the initial y-coordinate for the cell
      */
     public Cell(int x, int y, Maze maze) {
+        this.x = x;
+        this.y = y;
         this.walls = new Hashtable<>();
         walls.put("N", "T"); walls.put("S", "T"); walls.put("W", "T"); walls.put("E", "T");
 
