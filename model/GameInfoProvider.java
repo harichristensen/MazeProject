@@ -12,6 +12,10 @@ public interface GameInfoProvider {
 
     public Cell getCell(int x, int y);
 
+    public void setNewMaze(boolean status);
+
+    public boolean getNewMaze();
+
     //public int getTick();
 
 }

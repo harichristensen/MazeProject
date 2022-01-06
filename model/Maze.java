@@ -1,12 +1,13 @@
 package model;
-import view.View;
 
-import javax.swing.*;
 import java.util.*;
 
 public class Maze implements GameInfoProvider{
     protected List<List<Cell>> cells;
     protected int size;
+
+    /** If the maze has just been created */
+    protected boolean newMaze;
 
     /** The list of observers to be notified whenever the maze changes. */
     protected List<GameObserver> observers;
@@ -49,7 +50,6 @@ public class Maze implements GameInfoProvider{
      * @param x x coordinate of cell
      * @param y y coordinate of cell
      */
-    @Override
     public Cell getCell(int x, int y) {
         return cells.get(x).get(y);
     }
@@ -82,7 +82,6 @@ public class Maze implements GameInfoProvider{
      * Returns current instance of maze
      *
      */
-    @Override
     public Maze getMaze() {
         return this;
     }
@@ -94,5 +93,22 @@ public class Maze implements GameInfoProvider{
      */
     public void addObserver(GameObserver observer) {
         observers.add(observer);
+    }
+
+    /**
+     * Set new maze status
+     *
+     * @param status the new status of the maze
+     */
+    public void setNewMaze(boolean status) {
+        this.newMaze = status;
+    }
+
+    /**
+     * Get new maze status
+     *
+     */
+    public boolean getNewMaze() {
+        return newMaze;
     }
 }
