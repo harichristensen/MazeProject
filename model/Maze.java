@@ -4,9 +4,12 @@ import view.View;
 import javax.swing.*;
 import java.util.*;
 
-public class Maze {
+public class Maze implements GameInfoProvider{
     protected List<List<Cell>> cells;
     protected int size;
+
+    /** The list of observers to be notified whenever the maze changes. */
+    protected List<GameObserver> observers;
 
     /**
      * Initialize Maze.
@@ -20,6 +23,8 @@ public class Maze {
             cells.add(new ArrayList<>());
         }
         createMaze(size);
+
+        observers = new LinkedList<>();
     }
 
     /**
@@ -44,6 +49,7 @@ public class Maze {
      * @param x x coordinate of cell
      * @param y y coordinate of cell
      */
+    @Override
     public Cell getCell(int x, int y) {
         return cells.get(x).get(y);
     }
@@ -71,4 +77,22 @@ public class Maze {
             }
         }
      }
+
+    /**
+     * Returns current instance of maze
+     *
+     */
+    @Override
+    public Maze getMaze() {
+        return this;
+    }
+
+    /**
+     * Add observer to the list of observers.
+     *
+     * @param observer an observer of the maze
+     */
+    public void addObserver(GameObserver observer) {
+        observers.add(observer);
+    }
 }

@@ -10,6 +10,7 @@ public class MazeView extends JFrame{
     private static final int HEIGHT = 600;
 
     public MazeView(int size) {
+        removeAll();
         setTitle("Maze Algorithm");
         setSize(WIDTH, HEIGHT);
         MazeViewPanel mazeViewPanel = new MazeViewPanel(size);
@@ -17,5 +18,6 @@ public class MazeView extends JFrame{
         mazeViewPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
         mazeViewPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
         add(mazeViewPanel);
+        validate();
     }
 }

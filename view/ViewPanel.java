@@ -53,8 +53,6 @@ public class ViewPanel extends JPanel {
             MazeView mazeView = new MazeView(size);
             mazeView.setLocation(700, 200);
             mazeView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            mazeView.setVisible(true);
-
         });
         add(button);
 
