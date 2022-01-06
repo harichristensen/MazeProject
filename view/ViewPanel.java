@@ -9,6 +9,10 @@ public class ViewPanel extends JPanel {
     private static final int BUTTON_WIDTH = 600;
     private static final int BUTTON_HEIGHT = 400;
 
+    /**
+     * Initialize view panel.
+     *
+     */
     public ViewPanel() {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         add(Box.createVerticalStrut(5));
@@ -26,51 +30,36 @@ public class ViewPanel extends JPanel {
 
         add(Box.createVerticalStrut(5));
 
+        addSizeButton(25);
+        addSizeButton(50);
+        addSizeButton(100);
+    }
+
+    /**
+     * Add a button to the panel that opens a maze of the selected size
+     *
+     * @param size the size of maze to be created
+     */
+    public void addSizeButton(int size) {
         Dimension ButtonDimension = new Dimension();
         ButtonDimension.setSize(500, 500);
 
-        JButton button25 = new JButton("25x25");
-        button25.setSize(ButtonDimension);
-        button25.setFont(new Font("Serif", Font.PLAIN, 35));
-        button25.setMaximumSize(ButtonDimension);
-        button25.setBackground(Color.BLACK);
-        button25.setForeground(Color.WHITE);
-        button25.setAlignmentX(CENTER_ALIGNMENT);
-        button25.addActionListener(e -> {
-            MazeView mazeView = new MazeView(25);
+        JButton button = new JButton(size + "x" + size);
+        button.setSize(ButtonDimension);
+        button.setFont(new Font("Serif", Font.PLAIN, 35));
+        button.setMaximumSize(ButtonDimension);
+        button.setBackground(Color.BLACK);
+        button.setForeground(Color.WHITE);
+        button.setAlignmentX(CENTER_ALIGNMENT);
+        button.addActionListener(e -> {
+            MazeView mazeView = new MazeView(size);
+            mazeView.setLocation(700, 200);
+            mazeView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            mazeView.setVisible(true);
         });
-        add(button25);
+        add(button);
 
         add(Box.createVerticalStrut(30));
-
-        JButton button50 = new JButton("50x50");
-        button50.setSize(ButtonDimension);
-        button50.setFont(new Font("Serif", Font.PLAIN, 35));
-        button50.setMaximumSize(ButtonDimension);
-        button50.setBackground(Color.BLACK);
-        button50.setForeground(Color.WHITE);
-        button50.setAlignmentX(CENTER_ALIGNMENT);
-        button50.addActionListener(e -> {
-            MazeView mazeView = new MazeView(50);
-        });
-        add(button50);
-
-        add(Box.createVerticalStrut(30));
-
-        JButton button100 = new JButton("100x100");
-        button100.setSize(ButtonDimension);
-        button100.setFont(new Font("Serif", Font.PLAIN, 35));
-        button100.setMaximumSize(ButtonDimension);
-        button100.setBackground(Color.BLACK);
-        button100.setForeground(Color.WHITE);
-        button100.setAlignmentX(CENTER_ALIGNMENT);
-        button100.addActionListener(e -> {
-            MazeView mazeView = new MazeView(100);
-        });
-        add(button100);
-
-        add(Box.createVerticalStrut(30));
-
-        setVisible(true);
     }
+
 }
