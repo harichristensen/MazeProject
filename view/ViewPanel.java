@@ -17,8 +17,6 @@ public class ViewPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
         add(Box.createVerticalStrut(5));
 
-
-
         JPanel background = new JPanel();
         background.setBackground(Color.BLACK);
 
@@ -56,6 +54,7 @@ public class ViewPanel extends JPanel {
             mazeView.setLocation(700, 200);
             mazeView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             mazeView.setVisible(true);
+
         });
         add(button);
 

@@ -11,8 +11,11 @@ public class MazeView extends JFrame{
 
     public MazeView(int size) {
         setTitle("Maze Algorithm");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(WIDTH, HEIGHT);
         MazeViewPanel mazeViewPanel = new MazeViewPanel(size);
-        mazeViewPanel.setVisible(true);
+        mazeViewPanel.setSize(WIDTH, HEIGHT);
+        mazeViewPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        mazeViewPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+        add(mazeViewPanel);
     }
 }

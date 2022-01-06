@@ -18,5 +18,9 @@ public class View extends JFrame{
         add(viewPanel);
     }
 
+    public void closeView() {
+        this.setVisible(false);
+    }
+
     public static final long serialVersionUID = 1;
 }
