@@ -10,7 +10,7 @@ public class Maze implements GameInfoProvider{
     protected boolean newMaze;
 
     /** The list of observers to be notified whenever the maze changes. */
-    protected List<GameObserver> observers;
+    protected List<MazeObserver> observers;
 
     /**
      * Initialize Maze.
@@ -64,6 +64,10 @@ public class Maze implements GameInfoProvider{
         cell.removeWall(wall);
     }
 
+    /**
+     * get size of maze
+     *
+     */
     public int getSize() {
         return size;
     }
@@ -91,7 +95,7 @@ public class Maze implements GameInfoProvider{
      *
      * @param observer an observer of the maze
      */
-    public void addObserver(GameObserver observer) {
+    public void addObserver(MazeObserver observer) {
         observers.add(observer);
     }
 
@@ -110,5 +114,14 @@ public class Maze implements GameInfoProvider{
      */
     public boolean getNewMaze() {
         return newMaze;
+    }
+
+    /**
+     * Invoke mazeChanged on all the observers of the maze.
+     */
+    private void notifyObservers() {
+        for (MazeObserver obs : observers) {
+            obs.mazeChanged();
+        }
     }
 }

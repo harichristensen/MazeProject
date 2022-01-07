@@ -6,16 +6,16 @@ import java.util.List;
  * The information provided by the GameModel for outside access.
  */
 public interface GameInfoProvider {
-    public void addObserver(GameObserver observer);
+    void addObserver(MazeObserver observer);
 
-    public Maze getMaze();
+    Maze getMaze();
 
-    public Cell getCell(int x, int y);
+    Cell getCell(int x, int y);
 
-    public void setNewMaze(boolean status);
+    void setNewMaze(boolean status);
 
-    public boolean getNewMaze();
+    boolean getNewMaze();
 
-    //public int getTick();
+    //int getTick();
 
 }
