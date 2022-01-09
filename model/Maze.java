@@ -55,6 +55,14 @@ public class Maze implements GameInfoProvider{
     }
 
     /**
+     * Get the list of cells from maze
+     *
+     */
+    public List<List<Cell>> getCellList() {
+        return cells;
+    }
+
+    /**
      * Remove wall from cell and adjacent cell
      *
      * @param cell main cell to remove wall from

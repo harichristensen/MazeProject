@@ -11,6 +11,7 @@ public class View extends JFrame{
     public View() {
         setTitle("Maze Size Selection");
         setSize(WIDTH, HEIGHT);
+
         ViewPanel viewPanel = new ViewPanel();
         viewPanel.setSize(WIDTH, HEIGHT);
         viewPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
