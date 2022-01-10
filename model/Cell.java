@@ -12,7 +12,7 @@ public class Cell {
 
     private static int WIDTH;
     private static int HEIGHT;
-    protected Hashtable<String, String> walls;
+    protected Hashtable<String, Integer> walls;
 
     private static final Hashtable<String, String> wallList = new Hashtable<>();
 
@@ -37,7 +37,7 @@ public class Cell {
 
         this.imageList = new ImageList();
 
-        walls.put("N", "T"); walls.put("S", "T"); walls.put("W", "T"); walls.put("E", "T");
+        walls.put("N", 5); walls.put("S", 5); walls.put("W", 5); walls.put("E", 5);
 
         wallList.put("N", "S"); wallList.put("S", "N"); wallList.put("W", "E"); wallList.put("E", "W");
 
@@ -48,7 +48,7 @@ public class Cell {
             }
 
     public void removeWall(String wall) {
-            this.walls.put(wall, "F");
+            this.walls.put(wall, 0);
             Cell otherCell = null;
             switch (wall) {
                 case "N":
@@ -75,7 +75,7 @@ public class Cell {
                     break;
             }
             if (otherCell != null) {
-                otherCell.walls.put(Cell.wallList.get(wall), "F");
+                otherCell.walls.put(Cell.wallList.get(wall), 0);
             }
     }
 

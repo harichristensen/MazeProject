@@ -19,7 +19,7 @@ public class ImageList {
     public ImageList() {
         imageList = new Hashtable<>();
 
-        setWalls("redcell_right_left_top_bottom", "TTTT");
+        setWalls("redcell", "TTTT");
 
     }
 

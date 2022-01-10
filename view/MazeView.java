@@ -1,10 +1,14 @@
 package view;
 
+import java.util.Random;
 import model.Cell;
 import model.Maze;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -82,6 +86,14 @@ public class MazeView extends JFrame {
             }
     }
 
+    public int randomInt(int min, int max) {
+        int range = max - min + 1;
+        return (int)(Math.random() * range) + min;
+    }
+
+    public void randomizeMaze() {
+
+    }
     public void drawPane(List<Cell> cellList, Container pane) {
         for (int y = 0; y < maze.getSize(); y++) {
             Cell cell = cellList.get(y);
@@ -91,7 +103,7 @@ public class MazeView extends JFrame {
             Image newImage = oldImage.getScaledInstance(35, 35, java.awt.Image.SCALE_SMOOTH);
             imageIcon = new ImageIcon(newImage);
             image = new JLabel(imageIcon);
-
+            image.setBorder(new MatteBorder(5, 0, 0, 5, Color.BLACK));
             c.fill = GridBagConstraints.HORIZONTAL;
             c.weightx = 0.5;
             c.gridx = cell.getX();
