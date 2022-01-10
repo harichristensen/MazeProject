@@ -13,7 +13,7 @@ import java.util.List;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-public class MazeViewPanel extends JFrame {
+public class MazeView extends JFrame {
     protected static boolean shouldFill = true;
     protected static boolean shouldWeightX = true;
     protected static boolean RIGHT_TO_LEFT = false;
@@ -26,7 +26,7 @@ public class MazeViewPanel extends JFrame {
 
     protected Maze maze;
 
-    public MazeViewPanel(int size, JPanel panel){
+    public MazeView(int size, JPanel panel){
         this.panel = panel;
         this.maze = new Maze(size);
         build(maze);

@@ -2,8 +2,6 @@ package view;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ViewPanel extends JPanel {
     private static final int BUTTON_WIDTH = 600;
@@ -50,9 +48,9 @@ public class ViewPanel extends JPanel {
         button.setForeground(Color.WHITE);
         button.setAlignmentX(CENTER_ALIGNMENT);
         button.addActionListener(e -> {
-            MazeViewPanel mazeViewPanel = new MazeViewPanel(size,this);
-            mazeViewPanel.setLocation(700, 200);
-            mazeViewPanel.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            MazeView mazeView = new MazeView(size,this);
+            mazeView.setLocation(700, 200);
+            mazeView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         });
         add(button);
