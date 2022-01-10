@@ -1,11 +1,13 @@
 package model;
 
+import javax.swing.*;
 import java.util.*;
 
 public class Cell {
     protected int x;
     protected int y;
 
+    protected ImageIcon image;
     Maze maze;
 
     private static int WIDTH;
@@ -13,6 +15,8 @@ public class Cell {
     protected Hashtable<String, String> walls;
 
     private static final Hashtable<String, String> wallList = new Hashtable<>();
+
+    private ImageList imageList;
 
     /** How frequently (in terms of ticks) the cell is to change. */
     public static final int CHANGE_FREQ = 4;
@@ -30,9 +34,13 @@ public class Cell {
         this.x = x;
         this.y = y;
         this.walls = new Hashtable<>();
+
+        this.imageList = new ImageList();
+
         walls.put("N", "T"); walls.put("S", "T"); walls.put("W", "T"); walls.put("E", "T");
 
         wallList.put("N", "S"); wallList.put("S", "N"); wallList.put("W", "E"); wallList.put("E", "W");
+
 
         this.maze = maze;
 
@@ -69,6 +77,11 @@ public class Cell {
             if (otherCell != null) {
                 otherCell.walls.put(Cell.wallList.get(wall), "F");
             }
+    }
+
+    public String getImageName() {
+        Hashtable<Hashtable<String, String>, String> list = imageList.getImageList();
+        return list.get(walls);
     }
 
     public int getX() {

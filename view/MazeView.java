@@ -24,6 +24,7 @@ public class MazeView extends JFrame {
     protected Container pane;
     protected GridBagConstraints c;
 
+    private static final String imagePath = "Z:\\Documents\\Maze\\MazeProject\\images\\";
     protected Maze maze;
 
     public MazeView(int size, JPanel panel){
@@ -58,9 +59,10 @@ public class MazeView extends JFrame {
             pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         }
         JLabel image;
-        ImageIcon imageIcon = new ImageIcon("z:\\Documents\\Maze\\MazeProject\\images\\explosion1.png");
+
 
         GridBagConstraints c = new GridBagConstraints();
+
         if (shouldFill) {
             //natural height, maximum width
             c.fill = GridBagConstraints.HORIZONTAL;
@@ -75,20 +77,26 @@ public class MazeView extends JFrame {
 
 
         for (int x = 0; x < maze.getSize(); x++) {
-                drawPane(imageIcon, maze.getCellList().get(x), pane);
+                drawPane(maze.getCellList().get(x), pane);
 
             }
     }
 
-    public void drawPane(ImageIcon imageIcon, List<Cell> cellList, Container pane) {
+    public void drawPane(List<Cell> cellList, Container pane) {
         for (int y = 0; y < maze.getSize(); y++) {
             Cell cell = cellList.get(y);
+            ImageIcon imageIcon = new ImageIcon(imagePath + cell.getImageName());
+            System.out.println(cell.getImageName());
+            Image oldImage = imageIcon.getImage();
+            Image newImage = oldImage.getScaledInstance(35, 35, java.awt.Image.SCALE_SMOOTH);
+            imageIcon = new ImageIcon(newImage);
             image = new JLabel(imageIcon);
-                c.fill = GridBagConstraints.HORIZONTAL;
-                c.weightx = 0.5;
-                c.gridx = cell.getX();
-                c.gridy = cell.getY();
-                pane.add(image, c);
+
+            c.fill = GridBagConstraints.HORIZONTAL;
+            c.weightx = 0.5;
+            c.gridx = cell.getX();
+            c.gridy = cell.getY();
+            pane.add(image, c);
 
         }
     }
