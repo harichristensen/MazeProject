@@ -42,6 +42,7 @@ public class Maze implements GameInfoProvider{
             }
             cells.add(x, list);
         }
+        randomizeMaze();
     }
 
     /**
@@ -130,6 +131,31 @@ public class Maze implements GameInfoProvider{
     private void notifyObservers() {
         for (MazeObserver obs : observers) {
             obs.mazeChanged();
+        }
+    }
+
+    public int randomInt(int min, int max) {
+        int range = max - min + 1;
+        return (int)(Math.random() * range) + min;
+    }
+
+    public void randomizeMaze() {
+        for (List<Cell> cellList: getCellList()) {
+            for (Cell cell: cellList) {
+                int change = randomInt(0, 4);
+                while (change != 0) {
+                    int wall = randomInt(1, 4);
+                    change = randomInt(0, 1);
+                    switch (wall) {
+                        case 1 -> cell.removeWall("N");
+                        case 2 -> cell.removeWall("S");
+                        case 3 -> cell.removeWall("W");
+                        case 4 -> cell.removeWall("E");
+                        default -> {
+                        }
+                    }
+                }
+            }
         }
     }
 }

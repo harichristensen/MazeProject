@@ -1,5 +1,6 @@
 package view;
 
+import java.util.Objects;
 import java.util.Random;
 import model.Cell;
 import model.Maze;
@@ -7,6 +8,7 @@ import model.Maze;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
@@ -19,26 +21,38 @@ import java.awt.Graphics2D;
 
 public class MazeView extends JFrame {
     protected static boolean shouldFill = true;
-    protected static boolean shouldWeightX = true;
     protected static boolean RIGHT_TO_LEFT = false;
 
     protected JPanel panel;
 
     protected JLabel image;
-    protected Container pane;
     protected GridBagConstraints c;
 
     private static final String imagePath = "Z:\\Documents\\Maze\\MazeProject\\images\\";
     protected Maze maze;
+    protected ImageIcon imageIcon;
+
+    protected int imageSize;
 
     public MazeView(int size, JPanel panel){
+        this.imageIcon = new ImageIcon(imagePath + "redcell.png");
+        if (size == 25) {
+            this.imageSize = 30;
+        } else if (size == 50) {
+            this.imageSize = 10;
+        } else {
+            this.imageSize = 3;
+        }
+        Image oldImage = imageIcon.getImage();
+        Image newImage = oldImage.getScaledInstance(imageSize, imageSize, java.awt.Image.SCALE_SMOOTH);
+        this.imageIcon = new ImageIcon(newImage);
         this.panel = panel;
         this.maze = new Maze(size);
         build(maze);
     }
 
         public void build(Maze maze) {
-            JFrame frame = new JFrame("GridBagLayoutDemo");
+            JFrame frame = new JFrame("Maze");
 
 
             //Set up the content pane.
@@ -46,6 +60,7 @@ public class MazeView extends JFrame {
             //Display the window.
             frame.pack();
             frame.setVisible(true);
+            frame.setDefaultCloseOperation(HIDE_ON_CLOSE);
             frame.setLocationRelativeTo(panel);
 
     }
@@ -64,9 +79,7 @@ public class MazeView extends JFrame {
         }
         JLabel image;
 
-
         GridBagConstraints c = new GridBagConstraints();
-
         if (shouldFill) {
             //natural height, maximum width
             c.fill = GridBagConstraints.HORIZONTAL;
@@ -86,30 +99,65 @@ public class MazeView extends JFrame {
             }
     }
 
-    public int randomInt(int min, int max) {
-        int range = max - min + 1;
-        return (int)(Math.random() * range) + min;
-    }
 
-    public void randomizeMaze() {
-
-    }
     public void drawPane(List<Cell> cellList, Container pane) {
         for (int y = 0; y < maze.getSize(); y++) {
             Cell cell = cellList.get(y);
-            ImageIcon imageIcon = new ImageIcon(imagePath + cell.getImageName());
-            System.out.println(cell.getImageName());
-            Image oldImage = imageIcon.getImage();
-            Image newImage = oldImage.getScaledInstance(35, 35, java.awt.Image.SCALE_SMOOTH);
-            imageIcon = new ImageIcon(newImage);
             image = new JLabel(imageIcon);
-            image.setBorder(new MatteBorder(5, 0, 0, 5, Color.BLACK));
-            c.fill = GridBagConstraints.HORIZONTAL;
+
+            //cell.getWalls().get("S"), cell.getWalls().get("W"),
+            //                    cell.getWalls().get("N"), cell.getWalls().get("E"), Color.BLACK
+            int top = 0;
+            int bottom = 0;
+            int right = 0;
+            int left = 0;
+            int redTop = 5;
+            int redBottom = 5;
+            int redRight = 5;
+            int redLeft = 5;
+            if (maze.getSize() == 75) {
+                redTop = 1;
+                redBottom = 1;
+                redRight = 1;
+                redLeft = 1;
+            }
+            if (Objects.equals(cell.getWalls().get("N"), "T")) {
+                top = 5;
+                if (maze.getSize() == 75) {
+                top = 1;
+                }
+                redTop = 0;
+            }
+            if (Objects.equals(cell.getWalls().get("S"), "T")) {
+                bottom = 5;
+                if (maze.getSize() == 75) {
+                    bottom = 1;
+                }
+                redBottom = 0;
+            }
+            if (Objects.equals(cell.getWalls().get("E"), "T")) {
+                right = 5;
+                if (maze.getSize() == 75) {
+                    right = 1;
+                }
+                redRight = 0;
+            }
+            if (Objects.equals(cell.getWalls().get("W"), "T")) {
+                left = 5;
+                if (maze.getSize() == 75) {
+                    left = 1;
+                }
+                redLeft = 0;
+            }
+            Border blackBorder = BorderFactory.createMatteBorder(top, left, bottom, right, Color.black);
+            Border redBorder = BorderFactory.createMatteBorder(redTop, redLeft, redBottom, redRight, Color.red);
+
+            CompoundBorder compoundBorder = new CompoundBorder(blackBorder, redBorder);
+            image.setBorder(compoundBorder);
             c.weightx = 0.5;
             c.gridx = cell.getX();
             c.gridy = cell.getY();
             pane.add(image, c);
-
         }
     }
 }

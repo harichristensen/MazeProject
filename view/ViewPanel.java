@@ -48,10 +48,8 @@ public class ViewPanel extends JPanel {
         button.setForeground(Color.WHITE);
         button.setAlignmentX(CENTER_ALIGNMENT);
         button.addActionListener(e -> {
-            MazeView mazeView = new MazeView(size,this);
+            MazeView mazeView = new MazeView(size, new JPanel());
             mazeView.setLocation(700, 200);
-            mazeView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         });
         add(button);
 

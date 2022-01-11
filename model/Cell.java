@@ -1,6 +1,9 @@
 package model;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.MatteBorder;
+import java.awt.*;
 import java.util.*;
 
 public class Cell {
@@ -12,7 +15,7 @@ public class Cell {
 
     private static int WIDTH;
     private static int HEIGHT;
-    protected Hashtable<String, Integer> walls;
+    protected Hashtable<String, String> walls;
 
     private static final Hashtable<String, String> wallList = new Hashtable<>();
 
@@ -37,7 +40,7 @@ public class Cell {
 
         this.imageList = new ImageList();
 
-        walls.put("N", 5); walls.put("S", 5); walls.put("W", 5); walls.put("E", 5);
+        walls.put("N", "T"); walls.put("S", "T"); walls.put("W", "T"); walls.put("E", "T");
 
         wallList.put("N", "S"); wallList.put("S", "N"); wallList.put("W", "E"); wallList.put("E", "W");
 
@@ -48,7 +51,7 @@ public class Cell {
             }
 
     public void removeWall(String wall) {
-            this.walls.put(wall, 0);
+            this.walls.put(wall, "F");
             Cell otherCell = null;
             switch (wall) {
                 case "N":
@@ -75,13 +78,13 @@ public class Cell {
                     break;
             }
             if (otherCell != null) {
-                otherCell.walls.put(Cell.wallList.get(wall), 0);
+                otherCell.walls.put(Cell.wallList.get(wall), "F");
             }
+
     }
 
-    public String getImageName() {
-        Hashtable<Hashtable<String, String>, String> list = imageList.getImageList();
-        return list.get(walls);
+    public Hashtable<String, String> getWalls() {
+        return walls;
     }
 
     public int getX() {
