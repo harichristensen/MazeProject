@@ -28,7 +28,7 @@ public class ViewPanel extends JPanel {
 
         addSizeButton(25);
         addSizeButton(50);
-        addSizeButton(100);
+        addSizeButton(75);
     }
 
     /**

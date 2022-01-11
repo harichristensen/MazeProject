@@ -41,7 +41,7 @@ public class MazeView extends JFrame {
         } else if (size == 50) {
             this.imageSize = 10;
         } else {
-            this.imageSize = 3;
+            this.imageSize = 8;
         }
         Image oldImage = imageIcon.getImage();
         Image newImage = oldImage.getScaledInstance(imageSize, imageSize, java.awt.Image.SCALE_SMOOTH);
@@ -77,7 +77,6 @@ public class MazeView extends JFrame {
         if (RIGHT_TO_LEFT) {
             pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         }
-        JLabel image;
 
         GridBagConstraints c = new GridBagConstraints();
         if (shouldFill) {
@@ -92,10 +91,8 @@ public class MazeView extends JFrame {
             c.fill = GridBagConstraints.HORIZONTAL;
         }
 
-
         for (int x = 0; x < maze.getSize(); x++) {
                 drawPane(maze.getCellList().get(x), pane);
-
             }
     }
 
@@ -111,40 +108,40 @@ public class MazeView extends JFrame {
             int bottom = 0;
             int right = 0;
             int left = 0;
-            int redTop = 5;
-            int redBottom = 5;
-            int redRight = 5;
-            int redLeft = 5;
-            if (maze.getSize() == 75) {
+            int redTop = 3;
+            int redBottom = 3;
+            int redRight = 3;
+            int redLeft = 3;
+            if (maze.getSize() != 25) {
                 redTop = 1;
                 redBottom = 1;
                 redRight = 1;
                 redLeft = 1;
             }
             if (Objects.equals(cell.getWalls().get("N"), "T")) {
-                top = 5;
-                if (maze.getSize() == 75) {
+                top = 3;
+                if (maze.getSize() != 25) {
                 top = 1;
                 }
                 redTop = 0;
             }
             if (Objects.equals(cell.getWalls().get("S"), "T")) {
-                bottom = 5;
-                if (maze.getSize() == 75) {
+                bottom = 3;
+                if (maze.getSize() != 25) {
                     bottom = 1;
                 }
                 redBottom = 0;
             }
             if (Objects.equals(cell.getWalls().get("E"), "T")) {
-                right = 5;
-                if (maze.getSize() == 75) {
+                right = 3;
+                if (maze.getSize() != 25) {
                     right = 1;
                 }
                 redRight = 0;
             }
             if (Objects.equals(cell.getWalls().get("W"), "T")) {
-                left = 5;
-                if (maze.getSize() == 75) {
+                left = 3;
+                if (maze.getSize() != 25) {
                     left = 1;
                 }
                 redLeft = 0;
