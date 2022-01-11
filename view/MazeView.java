@@ -39,9 +39,9 @@ public class MazeView extends JFrame {
         if (size == 25) {
             this.imageSize = 30;
         } else if (size == 50) {
-            this.imageSize = 10;
+            this.imageSize = 16;
         } else {
-            this.imageSize = 8;
+            this.imageSize = 11;
         }
         Image oldImage = imageIcon.getImage();
         Image newImage = oldImage.getScaledInstance(imageSize, imageSize, java.awt.Image.SCALE_SMOOTH);
@@ -61,6 +61,7 @@ public class MazeView extends JFrame {
             frame.pack();
             frame.setVisible(true);
             frame.setDefaultCloseOperation(HIDE_ON_CLOSE);
+            frame.setResizable(false);
             frame.setLocationRelativeTo(panel);
 
     }
