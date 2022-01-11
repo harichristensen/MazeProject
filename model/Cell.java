@@ -73,14 +73,18 @@ public class Cell {
                 case "E":
                     if (x != maze.getSize() - 1) {
                         otherCell = maze.getCell(x+1, y);
+
                     }
                     break;
                 default:
                     break;
             }
             if (otherCell != null) {
+                this.neighbours.add(otherCell);
+                if (!otherCell.getNeighbours().contains(this)) {
+                    otherCell.neighbours.add(this);
+                }
                 otherCell.walls.put(Cell.wallList.get(wall), "F");
-                neighbours.add(otherCell);
             }
 
     }
@@ -97,7 +101,7 @@ public class Cell {
      * Remove of the cell neighbours
      *
      */
-    public void removeNeighbours(Cell cell) {
+    public void removeNeighbour(Cell cell) {
         neighbours.remove(cell);
     }
 
@@ -146,6 +150,7 @@ public class Cell {
      *
      */
     public String getItem() {
-            return "X: " + this.x + ", Y: " + this.y + ", Walls: " + this.walls;
-            }
+
+        return "X: " + this.x + ", Y: " + this.y + ", Walls: " + this.walls + ", Neighbors: " + neighbours;
+        }
     }

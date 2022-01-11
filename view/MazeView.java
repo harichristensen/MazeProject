@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.Random;
 import model.Cell;
 import model.Maze;
+import util.MazeSolver;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -49,6 +50,7 @@ public class MazeView extends JFrame {
         this.panel = panel;
         this.maze = new Maze(size);
         build(maze);
+        MazeSolver solveMaze = new MazeSolver(maze);
     }
 
         public void build(Maze maze) {
