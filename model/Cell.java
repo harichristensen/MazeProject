@@ -1,9 +1,5 @@
 package model;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.MatteBorder;
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -11,17 +7,13 @@ public class Cell {
     protected int x;
     protected int y;
 
-    protected ImageIcon image;
     Maze maze;
 
-    private static int WIDTH;
-    private static int HEIGHT;
     protected Hashtable<String, String> walls;
     protected List<Cell> neighbours;
 
     private static final Hashtable<String, String> wallList = new Hashtable<>();
 
-    private ImageList imageList;
 
     /** How frequently (in terms of ticks) the cell is to change. */
     public static final int CHANGE_FREQ = 4;
@@ -41,8 +33,6 @@ public class Cell {
 
         this.walls = new Hashtable<>();
         this.neighbours = new ArrayList<>();
-        this.imageList = new ImageList();
-
         walls.put("N", "T"); walls.put("S", "T"); walls.put("W", "T"); walls.put("E", "T");
         wallList.put("N", "S"); wallList.put("S", "N"); wallList.put("W", "E"); wallList.put("E", "W");
 
@@ -53,6 +43,11 @@ public class Cell {
         int tickCount = 0;
             }
 
+    /**
+     * Remove a cell wall and its neighbour wall.
+     *
+     * @param wall the wall to be removed
+     */
     public void removeWall(String wall) {
             this.walls.put(wall, "F");
             Cell otherCell = null;
@@ -86,21 +81,51 @@ public class Cell {
             }
 
     }
+
+    /**
+     * Get the neighbours of the cell
+     *
+     */
     public List<Cell> getNeighbours() {
         return neighbours;
     }
+
+    /**
+     * Remove of the cell neighbours
+     *
+     */
+    public void removeNeighbours(Cell cell) {
+        neighbours.remove(cell);
+    }
+
+    /**
+     * Get the walls of the cell
+     *
+     */
     public Hashtable<String, String> getWalls() {
         return walls;
     }
 
+    /**
+     * Get the x-coordinate of the cell
+     *
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Get the y-coordinate of the cell
+     *
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Return a string of information of the cell
+     *
+     */
     public String getItem() {
             return "X: " + this.x + ", Y: " + this.y + ", Walls: " + this.walls;
             }
