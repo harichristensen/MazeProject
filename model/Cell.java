@@ -52,41 +52,45 @@ public class Cell {
      * @param wall the wall to be removed
      */
     public void removeWall(String wall) {
-            this.walls.put(wall, "F");
-            Cell otherCell = null;
-            switch (wall) {
-                case "N":
-                    if (y != 0) {
-                        otherCell = maze.getCell(x, y-1);
-                    }
-                    break;
-                case "S":
-                    if (y != maze.getSize() - 1) {
-                        otherCell = maze.getCell(x, y+1);
-                    }
-                    break;
-                case "W":
-                    if (x != 0) {
-                        otherCell = maze.getCell(x-1, y);
-                    }
-                    break;
-                case "E":
-                    if (x != maze.getSize() - 1) {
-                        otherCell = maze.getCell(x+1, y);
-
-                    }
-                    break;
-                default:
-                    break;
-            }
-            if (otherCell != null) {
-                this.neighbours.add(otherCell);
-                if (!otherCell.getNeighbours().contains(this)) {
-                    otherCell.neighbours.add(this);
+        this.walls.put(wall, "F");
+        Cell thisCell = this;
+        Cell otherCell = null;
+        switch (wall) {
+            case "N":
+                if (y != 0) {
+                    otherCell = maze.getCell(x, y-1);
                 }
-                otherCell.walls.put(Cell.wallList.get(wall), "F");
-            }
+                break;
+            case "S":
+                if (y != maze.getSize() - 1) {
+                    otherCell = maze.getCell(x, y+1);
+                }
+                break;
+            case "W":
+                if (x != 0) {
+                    otherCell = maze.getCell(x-1, y);
+                }
+                break;
+            case "E":
+                if (x != maze.getSize() - 1) {
+                    otherCell = maze.getCell(x+1, y);
 
+                }
+                break;
+            default:
+                break;
+        }
+        if (otherCell != null) {
+            if (!this.getNeighbours().contains(otherCell) && !otherCell.getNeighbours().contains(this)){
+            this.neighbours.add(otherCell);
+            otherCell.neighbours.add(thisCell);
+            otherCell.walls.put(wallList.get(wall), "F");
+            } else {
+                System.out.println("\n"+ thisCell+" Neigh: " + thisCell.getNeighbours() + " Already in: " +
+                        otherCell + " Neigh: "+ otherCell.getNeighbours());
+                System.out.println();
+            }
+        }
     }
 
     /**
