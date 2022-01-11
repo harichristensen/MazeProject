@@ -14,6 +14,8 @@ public class Cell {
 
     private static final Hashtable<String, String> wallList = new Hashtable<>();
 
+    protected boolean visited;
+
 
     /** How frequently (in terms of ticks) the cell is to change. */
     public static final int CHANGE_FREQ = 4;
@@ -30,6 +32,7 @@ public class Cell {
     public Cell(int x, int y, Maze maze) {
         this.x = x;
         this.y = y;
+        this.visited=false;
 
         this.walls = new Hashtable<>();
         this.neighbours = new ArrayList<>();
@@ -120,6 +123,22 @@ public class Cell {
      */
     public int getY() {
         return y;
+    }
+
+    /**
+     * Set visited to true
+     *
+     */
+    public void setVisited() {
+        this.visited = true;
+    }
+
+    /**
+     * Return if cell has been visited or not
+     *
+     */
+    public boolean getVisited() {
+        return visited;
     }
 
     /**
