@@ -140,6 +140,7 @@ public class Maze implements GameInfoProvider{
     }
 
     public void randomizeMaze() {
+
         for (List<Cell> cellList: getCellList()) {
             for (Cell cell: cellList) {
                 int change = randomInt(0, 4);

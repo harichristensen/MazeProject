@@ -5,6 +5,7 @@ import javax.swing.border.Border;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class Cell {
     protected int x;
@@ -16,6 +17,7 @@ public class Cell {
     private static int WIDTH;
     private static int HEIGHT;
     protected Hashtable<String, String> walls;
+    protected List<Cell> neighbours;
 
     private static final Hashtable<String, String> wallList = new Hashtable<>();
 
@@ -36,13 +38,14 @@ public class Cell {
     public Cell(int x, int y, Maze maze) {
         this.x = x;
         this.y = y;
-        this.walls = new Hashtable<>();
 
+        this.walls = new Hashtable<>();
+        this.neighbours = new ArrayList<>();
         this.imageList = new ImageList();
 
         walls.put("N", "T"); walls.put("S", "T"); walls.put("W", "T"); walls.put("E", "T");
-
         wallList.put("N", "S"); wallList.put("S", "N"); wallList.put("W", "E"); wallList.put("E", "W");
+
 
 
         this.maze = maze;
@@ -79,10 +82,13 @@ public class Cell {
             }
             if (otherCell != null) {
                 otherCell.walls.put(Cell.wallList.get(wall), "F");
+                neighbours.add(otherCell);
             }
 
     }
-
+    public List<Cell> getNeighbours() {
+        return neighbours;
+    }
     public Hashtable<String, String> getWalls() {
         return walls;
     }
