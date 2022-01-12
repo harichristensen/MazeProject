@@ -25,36 +25,24 @@ public class MazeView extends JFrame {
     protected static boolean RIGHT_TO_LEFT = false;
 
     protected JPanel panel;
+    protected JFrame frame;
 
     protected JLabel image;
     protected GridBagConstraints c;
 
-    private static final String imagePath = "Z:\\Documents\\Maze\\MazeProject\\images\\";
     protected Maze maze;
-    protected ImageIcon imageIcon;
-
-    protected int imageSize;
 
     public MazeView(int size, JPanel panel){
-        this.imageIcon = new ImageIcon(imagePath + "redcell.png");
-        if (size == 25) {
-            this.imageSize = 30;
-        } else if (size == 50) {
-            this.imageSize = 16;
-        } else {
-            this.imageSize = 11;
-        }
-        Image oldImage = imageIcon.getImage();
-        Image newImage = oldImage.getScaledInstance(imageSize, imageSize, java.awt.Image.SCALE_SMOOTH);
-        this.imageIcon = new ImageIcon(newImage);
         this.panel = panel;
         this.maze = new Maze(size);
         build(maze);
-        MazeSolver solveMaze = new MazeSolver(maze);
+        new MazeSolver(this, maze);
     }
 
-        public void build(Maze maze) {
-            JFrame frame = new JFrame("Maze");
+
+
+    public void build(Maze maze) {
+            this.frame = new JFrame("Maze");
 
 
             //Set up the content pane.
@@ -66,6 +54,11 @@ public class MazeView extends JFrame {
             frame.setResizable(false);
             frame.setLocationRelativeTo(panel);
 
+    }
+
+    public void update() {
+        frame.setContentPane(new Container());
+        createMaze(frame.getContentPane());
     }
 
     /**
@@ -103,10 +96,8 @@ public class MazeView extends JFrame {
     public void drawPane(List<Cell> cellList, Container pane) {
         for (int y = 0; y < maze.getSize(); y++) {
             Cell cell = cellList.get(y);
-            image = new JLabel(imageIcon);
+            image = new JLabel(cell.getCellImage());
 
-            //cell.getWalls().get("S"), cell.getWalls().get("W"),
-            //                    cell.getWalls().get("N"), cell.getWalls().get("E"), Color.BLACK
             int top = 0;
             int bottom = 0;
             int right = 0;
@@ -150,7 +141,7 @@ public class MazeView extends JFrame {
                 redLeft = 0;
             }
             Border blackBorder = BorderFactory.createMatteBorder(top, left, bottom, right, Color.black);
-            Border redBorder = BorderFactory.createMatteBorder(redTop, redLeft, redBottom, redRight, Color.red);
+            Border redBorder = BorderFactory.createMatteBorder(redTop, redLeft, redBottom, redRight, cell.getColour());
 
             CompoundBorder compoundBorder = new CompoundBorder(blackBorder, redBorder);
             image.setBorder(compoundBorder);
@@ -160,4 +151,5 @@ public class MazeView extends JFrame {
             pane.add(image, c);
         }
     }
+
 }

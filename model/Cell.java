@@ -1,11 +1,20 @@
 package model;
 
+import view.ImageCache;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.*;
 import java.util.List;
 
 public class Cell {
     protected int x;
     protected int y;
+
+    protected static ImageCache imageCache;
+    protected ImageIcon imageIcon;
+    protected Color colour;
+    protected static final String imagePath = "Z:\\Documents\\Maze\\MazeProject\\images\\";
 
     Maze maze;
 
@@ -33,6 +42,8 @@ public class Cell {
         this.x = x;
         this.y = y;
         this.visited=false;
+
+        Cell.imageCache = ImageCache.getInstance(maze.getSize());
 
         this.walls = new Hashtable<>();
         this.neighbours = new ArrayList<>();
@@ -85,10 +96,6 @@ public class Cell {
             this.neighbours.add(otherCell);
             otherCell.neighbours.add(thisCell);
             otherCell.walls.put(wallList.get(wall), "F");
-            } else {
-                System.out.println("\n"+ thisCell+" Neigh: " + thisCell.getNeighbours() + " Already in: " +
-                        otherCell + " Neigh: "+ otherCell.getNeighbours());
-                System.out.println();
             }
         }
     }
@@ -157,4 +164,30 @@ public class Cell {
 
         return "X: " + this.x + ", Y: " + this.y + ", Walls: " + this.walls + ", Neighbors: " + neighbours;
         }
+
+    /**
+     * Return a string of information of the cell
+     *
+     */
+    public ImageIcon getCellImage() {
+        if (visited) {
+            this.imageIcon = imageCache.getImage("redcell.png");
+            this.colour = Color.red;
+
+        }
+        else {
+            this.imageIcon = imageCache.getImage("pinkcell.png");
+            this.colour= new Color(249,148,179);
+        }
+        return imageIcon;
+    }
+
+    /**
+     * Return a string of information of the cell
+     *
+     */
+    public Color getColour() {
+        System.out.println(colour);
+        return colour;
+    }
     }

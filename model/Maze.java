@@ -1,5 +1,8 @@
 package model;
 
+import view.ImageCache;
+
+import javax.swing.*;
 import java.util.*;
 
 public class Maze implements GameInfoProvider{
@@ -12,6 +15,8 @@ public class Maze implements GameInfoProvider{
     /** The list of observers to be notified whenever the maze changes. */
     protected List<MazeObserver> observers;
 
+
+
     /**
      * Initialize Maze.
      *
@@ -20,12 +25,15 @@ public class Maze implements GameInfoProvider{
     public Maze(int size) {
         this.size = size;
         this.cells = new ArrayList<>(size);
+
+
         for (int i = 0; i < size; i++) {
             cells.add(new ArrayList<>());
         }
         createMaze(size);
 
         observers = new LinkedList<>();
+
     }
 
     /**
@@ -159,4 +167,5 @@ public class Maze implements GameInfoProvider{
             }
         }
     }
+
 }

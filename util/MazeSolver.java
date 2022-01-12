@@ -2,6 +2,7 @@ package util;
 
 import model.Cell;
 import model.Maze;
+import view.MazeView;
 
 import java.util.Stack;
 
@@ -9,15 +10,17 @@ public class MazeSolver {
     protected Stack<Cell> cells;
     protected Maze maze;
     protected String result;
+    protected MazeView mazeView;
 
     /**
      * Initialize Maze Solver.
      *
      * @param maze the initial maze to solve
      */
-    public MazeSolver(Maze maze) {
+    public MazeSolver(MazeView mazeView, Maze maze) {
         this.result = "Impossible maze";
         this.cells = new Stack<>();
+        this.mazeView = mazeView;
         // Starting position
         cells.push(maze.getCell(0, 0));
         this.maze = maze;
@@ -37,11 +40,12 @@ public class MazeSolver {
                 // No neighbours (dead end)
                 if (cell.getNeighbours().size() == 0) {
                     cells.pop();
-
+                    cell.setVisited();
                     // End of stack
                     if (cells.size() == 0) {
                         return;
                     }
+                    mazeView.update();
                     solve();
                 }
 
@@ -54,6 +58,7 @@ public class MazeSolver {
                 Cell added = cells.push(cell.getNeighbours().get(0));
                 added.removeNeighbour(cell);
                 cell.removeNeighbour(added);
+                mazeView.update();
                 solve();
             }
         }
@@ -61,8 +66,4 @@ public class MazeSolver {
         }
     }
 
-    public static void main(String[] args) {
-        Maze newMaze = new Maze(25);
-        new MazeSolver(newMaze);
-    }
 }
