@@ -151,26 +151,45 @@ public class MazeView extends JFrame{
     public void solveFrame() {
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
+        setLayout(new BoxLayout(frame, BoxLayout.PAGE_AXIS));
         frame.add(panel);
         frame.setLocation(this.frame.getX()-250, this.frame.getY());
-        frame.setSize(250, 100);
+        frame.setSize(250, 255);
         frame.setVisible(true);
 
         Dimension dimension = new Dimension();
         dimension.setSize(250, 100);
 
         JButton button = new JButton("Click to Solve");
-        button.setSize(dimension);
         button.setFont(new Font("Serif", Font.PLAIN, 35));
-        button.setMaximumSize(dimension);
         button.setBackground(Color.BLACK);
         button.setForeground(Color.WHITE);
         button.setAlignmentX(CENTER_ALIGNMENT);
+        button.setPreferredSize(dimension);
         button.addActionListener(e -> {
             this.frame.setVisible(false); //you can't see me!
             this.frame.dispose();
             new MazeSolver(this, maze);
             MazeView mazeView = new MazeView(maze, true);
+            mazeView.setLocation(700, 200);
+            frame.setVisible(false);
+            frame.dispose();
+        });
+        panel.add(button);
+
+        button = new JButton("New Maze");
+        button.setSize(dimension);
+        button.setFont(new Font("Serif", Font.PLAIN, 35));
+        button.setMinimumSize(dimension);
+        button.setMaximumSize(dimension);
+        button.setBackground(Color.BLACK);
+        button.setForeground(Color.WHITE);
+        button.setAlignmentX(CENTER_ALIGNMENT);
+        button.setPreferredSize(dimension);
+        button.addActionListener(e -> {
+            this.frame.setVisible(false); //you can't see me!
+            this.frame.dispose();
+            MazeView mazeView = new MazeView(new Maze(maze.getSize()), false);
             mazeView.setLocation(700, 200);
             frame.setVisible(false);
             frame.dispose();
