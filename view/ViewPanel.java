@@ -5,10 +5,13 @@ import model.Maze;
 import javax.swing.*;
 import java.awt.*;
 
-public class ViewPanel extends JPanel {
-    private static final int BUTTON_WIDTH = 600;
-    private static final int BUTTON_HEIGHT = 400;
+/**
+ * IMPORTANT
+ * This code is not currently being used as the maze solver can not handle larger mazes yet.
+ * When it can this code can be used to create a frame to display different maze size options.
+ */
 
+public class ViewPanel extends JPanel {
     /**
      * Initialize view panel.
      *

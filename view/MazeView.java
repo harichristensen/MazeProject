@@ -18,9 +18,10 @@ public class MazeView extends JFrame{
     protected static boolean RIGHT_TO_LEFT = false;
     protected GridBagConstraints c;
 
-    // this panel and frame
+    // this panel and frame and description frame
     protected JPanel panel;
     protected JFrame frame;
+    protected JFrame descriptionFrame;
 
     // if the maze has been solved and updated
     protected boolean done;
@@ -187,7 +188,7 @@ public class MazeView extends JFrame{
      */
     public void mazeOptionsFrame() {
         // create frame and pane
-        JFrame mazeFrame = new JFrame();
+        JFrame mazeFrame = new JFrame("Options");
         JPanel mazePanel = new JPanel();
         // set frame layout
         setLayout(new BoxLayout(mazeFrame, BoxLayout.PAGE_AXIS));
@@ -281,7 +282,7 @@ public class MazeView extends JFrame{
      */
     public void solveOptionsFrame() {
         // create frame and panel
-        JFrame solveOptions = new JFrame();
+        JFrame solveOptions = new JFrame("Options");
         JPanel solvePanel = new JPanel();
         // set frame layout and add panel to frame
         setLayout(new BoxLayout(solveOptions, BoxLayout.PAGE_AXIS));
@@ -314,6 +315,8 @@ public class MazeView extends JFrame{
             // closes and deletes previous options frame
             solveOptions.setVisible(false);
             solveOptions.dispose();
+            descriptionFrame.setVisible(false);
+            descriptionFrame.dispose();
         });
         solvePanel.add(button);
 
@@ -346,7 +349,7 @@ public class MazeView extends JFrame{
      */
     public void descriptionFrame(String text) {
         // create frame and panel
-        JFrame descriptionFrame = new JFrame();
+        this.descriptionFrame = new JFrame("Maze Description");
         JPanel descriptionPanel = new JPanel();
         setLayout(new BoxLayout(descriptionFrame, BoxLayout.PAGE_AXIS));
         descriptionFrame.add(descriptionPanel);

@@ -3,6 +3,11 @@ package view;
 import javax.swing.JFrame;
 import java.awt.*;
 
+/**
+ * IMPORTANT
+ * This code is not currently being used as the maze solver can not handle larger mazes yet.
+ * When it can this code can be used to create a frame to display different maze size options.
+ */
 
 public class View extends JFrame{
     private static final int WIDTH = 600;
@@ -19,9 +24,6 @@ public class View extends JFrame{
         add(viewPanel);
     }
 
-    public void closeView() {
-        this.setVisible(false);
-    }
 
     public static final long serialVersionUID = 1;
 }
