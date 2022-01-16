@@ -20,30 +20,34 @@ import java.util.List;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-public class MazeView extends JFrame {
+public class MazeView extends JFrame{
     protected static boolean shouldFill = true;
     protected static boolean RIGHT_TO_LEFT = false;
 
+
     protected JPanel panel;
     protected JFrame frame;
+    protected boolean done;
 
     protected JLabel image;
     protected GridBagConstraints c;
 
     protected Maze maze;
 
-    public MazeView(int size, JPanel panel){
-        this.panel = panel;
-        this.maze = new Maze(size);
-        build(maze);
-        new MazeSolver(this, maze);
+    public MazeView(Maze maze, boolean done) {
+        this.done = done;
+        this.panel = new JPanel();
+        this.maze = maze;
+        build();
+        if(!done) {
+            solveFrame();
+        }
     }
 
 
 
-    public void build(Maze maze) {
+    public void build() {
             this.frame = new JFrame("Maze");
-
 
             //Set up the content pane.
             createMaze(frame.getContentPane());
@@ -53,23 +57,12 @@ public class MazeView extends JFrame {
             frame.setDefaultCloseOperation(HIDE_ON_CLOSE);
             frame.setResizable(false);
             frame.setLocationRelativeTo(panel);
-
     }
 
-    public void update() {
-        frame.setContentPane(new Container());
-        createMaze(frame.getContentPane());
-    }
-
-    /**
-     * When the maze changes, repaint the view.
-     */
-    public synchronized void gameChanged() {
-        repaint();
-    }
 
 
     public void createMaze(Container pane) {
+        pane.removeAll();
         if (RIGHT_TO_LEFT) {
             pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         }
@@ -150,6 +143,35 @@ public class MazeView extends JFrame {
             c.gridy = cell.getY();
             pane.add(image, c);
         }
+    }
+
+    public void solveFrame() {
+        JFrame frame = new JFrame();
+        JPanel panel = new JPanel();
+        frame.add(panel);
+        frame.setLocation((int) this.getSize().getHeight(), (int) this.getSize().getWidth() );
+        frame.setSize(500, 500);
+        frame.setVisible(true);
+
+        Dimension dimension = new Dimension();
+        dimension.setSize(500, 500);
+
+        JButton button = new JButton("Click to Solve");
+        button.setSize(dimension);
+        button.setFont(new Font("Serif", Font.PLAIN, 35));
+        button.setMaximumSize(dimension);
+        button.setBackground(Color.BLACK);
+        button.setForeground(Color.WHITE);
+        button.setAlignmentX(CENTER_ALIGNMENT);
+        button.addActionListener(e -> {
+            this.frame.setVisible(false); //you can't see me!
+            this.frame.dispose();
+            MazeSolver mazeSolver = new MazeSolver(this, maze);
+            MazeView mazeView = new MazeView(maze, false);
+            mazeView.setLocation(700, 200);
+            frame.setVisible(false);
+        });
+        panel.add(button);
     }
 
 }

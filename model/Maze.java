@@ -15,7 +15,7 @@ public class Maze implements GameInfoProvider{
     /** The list of observers to be notified whenever the maze changes. */
     protected List<MazeObserver> observers;
 
-
+    protected ImageCache imageCache;
 
     /**
      * Initialize Maze.
@@ -23,6 +23,7 @@ public class Maze implements GameInfoProvider{
      * @param size the size of the maze
      */
     public Maze(int size) {
+        this.imageCache = ImageCache.getInstance(size);
         this.size = size;
         this.cells = new ArrayList<>(size);
 
@@ -126,9 +127,17 @@ public class Maze implements GameInfoProvider{
     }
 
     /**
-     * Get new maze status
+     * get size of maze
      *
      */
+    public ImageCache getImages() {
+        return imageCache;
+    }
+
+        /**
+         * Get new maze status
+         *
+         */
     public boolean getNewMaze() {
         return newMaze;
     }

@@ -11,10 +11,9 @@ public class Cell {
     protected int x;
     protected int y;
 
-    protected static ImageCache imageCache;
+
     protected ImageIcon imageIcon;
     protected Color colour;
-    protected static final String imagePath = "Z:\\Documents\\Maze\\MazeProject\\images\\";
 
     Maze maze;
 
@@ -43,7 +42,7 @@ public class Cell {
         this.y = y;
         this.visited=false;
 
-        Cell.imageCache = ImageCache.getInstance(maze.getSize());
+
 
         this.walls = new Hashtable<>();
         this.neighbours = new ArrayList<>();
@@ -171,12 +170,12 @@ public class Cell {
      */
     public ImageIcon getCellImage() {
         if (visited) {
-            this.imageIcon = imageCache.getImage("redcell.png");
+            this.imageIcon = maze.getImages().getImage("redcell.png");
             this.colour = Color.red;
 
         }
         else {
-            this.imageIcon = imageCache.getImage("pinkcell.png");
+            this.imageIcon = maze.getImages().getImage("pinkcell.png");
             this.colour= new Color(249,148,179);
         }
         return imageIcon;
@@ -187,7 +186,6 @@ public class Cell {
      *
      */
     public Color getColour() {
-        System.out.println(colour);
         return colour;
     }
     }

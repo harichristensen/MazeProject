@@ -4,13 +4,17 @@ import model.Cell;
 import model.Maze;
 import view.MazeView;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Stack;
 
-public class MazeSolver {
+public class MazeSolver{
     protected Stack<Cell> cells;
     protected Maze maze;
     protected String result;
     protected MazeView mazeView;
+    protected Timer solverDelay;
 
     /**
      * Initialize Maze Solver.
@@ -29,11 +33,8 @@ public class MazeSolver {
 
     }
 
-    /**
-     * Solve the maze by recursively travelling through the neighbours of a cell in the stack
-     *
-     */
-    public void solve () {
+
+    public void solve() {
         try {
             if (cells.size() != 0) {
                 Cell cell = cells.lastElement();
@@ -45,7 +46,6 @@ public class MazeSolver {
                     if (cells.size() == 0) {
                         return;
                     }
-                    mazeView.update();
                     solve();
                 }
 
@@ -58,11 +58,9 @@ public class MazeSolver {
                 Cell added = cells.push(cell.getNeighbours().get(0));
                 added.removeNeighbour(cell);
                 cell.removeNeighbour(added);
-                mazeView.update();
                 solve();
             }
-        }
-        catch (Exception ignored) {
+        } catch (Exception ignored) {
         }
     }
 

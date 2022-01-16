@@ -35,8 +35,6 @@ public class ImageCache {
 
     private ImageCache(int size) {
         cache = new HashMap<>();
-
-
         if (size == 25) {
             this.imageSize = 30;
         } else if (size == 50) {

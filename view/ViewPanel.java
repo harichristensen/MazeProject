@@ -1,5 +1,7 @@
 package view;
 
+import model.Maze;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -48,7 +50,7 @@ public class ViewPanel extends JPanel {
         button.setForeground(Color.WHITE);
         button.setAlignmentX(CENTER_ALIGNMENT);
         button.addActionListener(e -> {
-            MazeView mazeView = new MazeView(size, new JPanel());
+            MazeView mazeView = new MazeView(new Maze(size), false);
             mazeView.setLocation(700, 200);
         });
         add(button);
