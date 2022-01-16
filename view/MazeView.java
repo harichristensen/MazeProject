@@ -33,8 +33,11 @@ public class MazeView extends JFrame{
         this.maze = maze;
         build();
         if(!done) {
-            solveFrame();
+            mazeOptionsFrame();
+        } else {
+            solveOptionsFrame();
         }
+
     }
 
 
@@ -146,16 +149,16 @@ public class MazeView extends JFrame{
     }
 
     /**
-     * Creates a frame to open a new maze view frame with the updated maze that is solved.
+     * Creates a frame to hold options on what to do with the maze.
      */
-    public void solveFrame() {
-        JFrame frame = new JFrame();
-        JPanel panel = new JPanel();
-        setLayout(new BoxLayout(frame, BoxLayout.PAGE_AXIS));
-        frame.add(panel);
-        frame.setLocation(this.frame.getX()-250, this.frame.getY());
-        frame.setSize(250, 360);
-        frame.setVisible(true);
+    public void mazeOptionsFrame() {
+        JFrame mazeFrame = new JFrame();
+        JPanel mazePanel = new JPanel();
+        setLayout(new BoxLayout(mazeFrame, BoxLayout.PAGE_AXIS));
+        mazeFrame.add(mazePanel);
+        mazeFrame.setLocation(this.frame.getX()-250, this.frame.getY());
+        mazeFrame.setSize(250, 360);
+        mazeFrame.setVisible(true);
 
         Dimension dimension = new Dimension();
         dimension.setSize(250, 100);
@@ -172,10 +175,10 @@ public class MazeView extends JFrame{
             new MazeSolver(this, maze);
             MazeView mazeView = new MazeView(maze, true);
             mazeView.setLocation(700, 200);
-            frame.setVisible(false);
-            frame.dispose();
+            mazeFrame.setVisible(false);
+            mazeFrame.dispose();
         });
-        panel.add(button);
+        mazePanel.add(button);
 
         button = new JButton("New Maze");
         button.setSize(dimension);
@@ -191,10 +194,10 @@ public class MazeView extends JFrame{
             this.frame.dispose();
             MazeView mazeView = new MazeView(new Maze(maze.getSize()), false);
             mazeView.setLocation(700, 200);
-            frame.setVisible(false);
-            frame.dispose();
+            mazeFrame.setVisible(false);
+            mazeFrame.dispose();
         });
-        panel.add(button);
+        mazePanel.add(button);
 
         button = new JButton("Back to Menu");
         button.setSize(dimension);
@@ -208,10 +211,62 @@ public class MazeView extends JFrame{
         button.addActionListener(e -> {
             this.frame.setVisible(false); //you can't see me!
             this.frame.dispose();
-            frame.setVisible(false);
-            frame.dispose();
+            mazeFrame.setVisible(false);
+            mazeFrame.dispose();
         });
-        panel.add(button);
+        mazePanel.add(button);
+    }
+
+    /**
+     * Creates a frame to open a new maze view frame with the updated maze that is solved.
+     */
+    public void solveOptionsFrame() {
+        JFrame solveOptions = new JFrame();
+        JPanel solvePanel = new JPanel();
+        setLayout(new BoxLayout(solveOptions, BoxLayout.PAGE_AXIS));
+        solveOptions.add(solvePanel);
+        solveOptions.setLocation(this.frame.getX()-250, this.frame.getY());
+        solveOptions.setSize(250, 255);
+        solveOptions.setVisible(true);
+
+        Dimension dimension = new Dimension();
+        dimension.setSize(250, 100);
+
+        JButton button = new JButton("New Maze");
+        button.setSize(dimension);
+        button.setFont(new Font("Serif", Font.PLAIN, 35));
+        button.setMinimumSize(dimension);
+        button.setMaximumSize(dimension);
+        button.setBackground(Color.BLACK);
+        button.setForeground(Color.WHITE);
+        button.setAlignmentX(CENTER_ALIGNMENT);
+        button.setPreferredSize(dimension);
+        button.addActionListener(e -> {
+            this.frame.setVisible(false); //you can't see me!
+            this.frame.dispose();
+            MazeView mazeView = new MazeView(new Maze(maze.getSize()), false);
+            mazeView.setLocation(700, 200);
+            solveOptions.setVisible(false);
+            solveOptions.dispose();
+        });
+        solvePanel.add(button);
+
+        button = new JButton("Back to Menu");
+        button.setSize(dimension);
+        button.setFont(new Font("Serif", Font.PLAIN, 35));
+        button.setMinimumSize(dimension);
+        button.setMaximumSize(dimension);
+        button.setBackground(Color.BLACK);
+        button.setForeground(Color.WHITE);
+        button.setAlignmentX(CENTER_ALIGNMENT);
+        button.setPreferredSize(dimension);
+        button.addActionListener(e -> {
+            this.frame.setVisible(false); //you can't see me!
+            this.frame.dispose();
+            solveOptions.setVisible(false);
+            solveOptions.dispose();
+        });
+        solvePanel.add(button);
     }
 
 }
