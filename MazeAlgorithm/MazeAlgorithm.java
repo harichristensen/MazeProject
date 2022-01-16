@@ -5,6 +5,9 @@ import view.MazeView;
 
 import javax.swing.*;
 
+/**
+ * The main function to run the maze program that creates and then solves a maze
+ */
 public class MazeAlgorithm {
     public static void main(String[] args) {
         MazeView mazeView = new MazeView(new Maze(25), false);

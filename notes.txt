@@ -5,3 +5,6 @@ I thought to myself if getting the first index searches all the cells then the o
 could give the opposite result. So I changed line 65 to:
 Line 65 after: Cell added = cells.push(cell.getNeighbours().get(cell.getNeighbours().size()-1));
 Suddenly my best path algorithm worked, and it searched the least amount of cells before reaching the end of the maze.
+
+In teh future if I want to make the algorithm find the best path I will change the solver to choose the neighbour that
+is closer to the end cell.
