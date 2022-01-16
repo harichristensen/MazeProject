@@ -169,10 +169,11 @@ public class MazeView extends JFrame{
         button.addActionListener(e -> {
             this.frame.setVisible(false); //you can't see me!
             this.frame.dispose();
-            MazeSolver mazeSolver = new MazeSolver(this, maze);
-            MazeView mazeView = new MazeView(maze, false);
+            new MazeSolver(this, maze);
+            MazeView mazeView = new MazeView(maze, true);
             mazeView.setLocation(700, 200);
             frame.setVisible(false);
+            frame.dispose();
         });
         panel.add(button);
     }
