@@ -6,19 +6,12 @@ import model.Cell;
 import model.Maze;
 import util.MazeSolver;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
+
 import java.util.List;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 
 public class MazeView extends JFrame{
     protected static boolean shouldFill = true;
@@ -45,7 +38,9 @@ public class MazeView extends JFrame{
     }
 
 
-
+    /**
+     * Builds the frame to display maze
+     */
     public void build() {
             this.frame = new JFrame("Maze");
 
@@ -60,7 +55,9 @@ public class MazeView extends JFrame{
     }
 
 
-
+    /**
+     * Sets layout and constraints of the frame content and calls draw pane
+     */
     public void createMaze(Container pane) {
         pane.removeAll();
         if (RIGHT_TO_LEFT) {
@@ -86,6 +83,9 @@ public class MazeView extends JFrame{
     }
 
 
+    /**
+     * Draws cells  and cell borders on pane, sets border size, gets cell image, ands sets cell location
+     */
     public void drawPane(List<Cell> cellList, Container pane) {
         for (int y = 0; y < maze.getSize(); y++) {
             Cell cell = cellList.get(y);
@@ -145,16 +145,19 @@ public class MazeView extends JFrame{
         }
     }
 
+    /**
+     * Creates a frame to open a new maze view frame with the updated maze that is solved.
+     */
     public void solveFrame() {
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
         frame.add(panel);
-        frame.setLocation((int) this.getSize().getHeight(), (int) this.getSize().getWidth() );
-        frame.setSize(500, 500);
+        frame.setLocation(this.frame.getX()-250, this.frame.getY());
+        frame.setSize(250, 100);
         frame.setVisible(true);
 
         Dimension dimension = new Dimension();
-        dimension.setSize(500, 500);
+        dimension.setSize(250, 100);
 
         JButton button = new JButton("Click to Solve");
         button.setSize(dimension);
