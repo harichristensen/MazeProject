@@ -53,6 +53,7 @@ public class Maze implements GameInfoProvider{
             cells.add(x, list);
         }
         randomizeMaze();
+        Cell endCell = cells.get(size-1).get(size-1);
     }
 
     /**

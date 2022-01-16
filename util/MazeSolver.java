@@ -2,14 +2,9 @@ package util;
 
 import model.Cell;
 import model.Maze;
-import org.w3c.dom.events.EventException;
 import view.MazeView;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Stack;
 
 public class MazeSolver{
@@ -31,7 +26,6 @@ public class MazeSolver{
         // Starting position
         cells.push(maze.getCell(0, 0));
         this.maze = maze;
-        System.out.println("\n\n\nSTART SOLVE");
         solve();
         System.out.println(result);
 
@@ -42,8 +36,11 @@ public class MazeSolver{
         try {
             while (!cells.isEmpty()) {
                 Cell cell = cells.lastElement();
-                System.out.println(cell.getItem());
                 cell.setVisited();
+                if (cell.getX() == maze.getSize()-1 && cells.lastElement().getY() == maze.getSize()-1) {
+                    this.result = "Maze Completed!";
+                    return;
+                }
                 // No neighbours (dead end)
                 if (cell.getNeighbours().size() == 0) {
                     cells.pop();
@@ -58,10 +55,8 @@ public class MazeSolver{
                 }
 
                 // At end position
-                if (cells.lastElement().getX() == maze.getSize()-1 && cells.lastElement().getY() == maze.getSize()-1) {
-                    this.result = "Maze Completed!";
-                    return;
-                }
+                System.out.println(cell.getItem());
+
                 Cell added = cells.push(cell.getNeighbours().get(cell.getNeighbours().size()-1));
                 added.removeNeighbour(cell);
                 cell.removeNeighbour(added);
