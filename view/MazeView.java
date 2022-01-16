@@ -13,29 +13,46 @@ import java.awt.*;
 import java.util.List;
 
 public class MazeView extends JFrame{
+    // pane attributes
     protected static boolean shouldFill = true;
     protected static boolean RIGHT_TO_LEFT = false;
-
-
-    protected JPanel panel;
-    protected JFrame frame;
-    protected boolean done;
-
-    protected JLabel image;
     protected GridBagConstraints c;
 
+    // this panel and frame
+    protected JPanel panel;
+    protected JFrame frame;
+
+    // if the maze has been solved and updated
+    protected boolean done;
+
+    // image of current cell
+    protected JLabel image;
+
+    // maze to be shown
     protected Maze maze;
 
+    /**
+     * Initialize MazeView.
+     *
+     * @param maze the maze to be displayed
+     * @param done if the maze has been solved and updated
+     */
     public MazeView(Maze maze, boolean done) {
+        // Initialize attributes
         this.done = done;
         this.panel = new JPanel();
         this.maze = maze;
+
+        // build frame
         build();
+
+        // if maze has been solved
         if(!done) {
             mazeOptionsFrame();
         } else {
             solveOptionsFrame();
-            descriptionFrame("The purple path is the path found by the recursive maze solver. The red" +
+            descriptionFrame("The golden cells are the start and end cells (top right to top left). " +
+                    "The purple path is the path found by the recursive maze solver. The red" +
                     "cells are cells that were visited and found to be a dead end. If the maze is impossible there " +
                     "will be no purple path and 'Impossible maze' will be printed.");
         }
@@ -49,9 +66,9 @@ public class MazeView extends JFrame{
     public void build() {
             this.frame = new JFrame("Maze");
 
-            //Set up the content pane.
+            // set up the content pane.
             createMaze(frame.getContentPane());
-            //Display the window.
+            // display the window.
             frame.pack();
             frame.setVisible(true);
             frame.setDefaultCloseOperation(HIDE_ON_CLOSE);
@@ -64,24 +81,23 @@ public class MazeView extends JFrame{
      * Sets layout and constraints of the frame content and calls draw pane
      */
     public void createMaze(Container pane) {
+        // resets pane
         pane.removeAll();
         if (RIGHT_TO_LEFT) {
             pane.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         }
 
-        GridBagConstraints c = new GridBagConstraints();
-        if (shouldFill) {
-            //natural height, maximum width
-            c.fill = GridBagConstraints.HORIZONTAL;
-        }
-
+        // set pane layout
         pane.setLayout(new GridBagLayout());
         this.c = new GridBagConstraints();
+        // if pane should fill frame
         if (shouldFill) {
             //natural height, maximum width
             c.fill = GridBagConstraints.HORIZONTAL;
         }
 
+        // draw cells on pane
+        // for each row
         for (int x = 0; x < maze.getSize(); x++) {
                 drawPane(maze.getCellList().get(x), pane);
             }
@@ -89,63 +105,79 @@ public class MazeView extends JFrame{
 
 
     /**
-     * Draws cells  and cell borders on pane, sets border size, gets cell image, ands sets cell location
+     * Draws cells and cell borders on pane, sets border size, gets cell image, and sets cell location onto pane
      */
     public void drawPane(List<Cell> cellList, Container pane) {
+        // for each column
         for (int y = 0; y < maze.getSize(); y++) {
+
+            // gets cell with current coordinates
             Cell cell = cellList.get(y);
+
+            // gets the current cell's image
             image = new JLabel(cell.getCellImage());
 
+            // set black border sizes
             int top = 0;
             int bottom = 0;
             int right = 0;
             int left = 0;
-            int redTop = 3;
-            int redBottom = 3;
-            int redRight = 3;
-            int redLeft = 3;
+            // set colour border sizes
+            int colourTop = 3;
+            int colourBottom = 3;
+            int colourRight = 3;
+            int colourLeft = 3;
+            // changes border sizes if image sizes are bigger
             if (maze.getSize() != 25) {
-                redTop = 1;
-                redBottom = 1;
-                redRight = 1;
-                redLeft = 1;
+                colourTop = 1;
+                colourBottom = 1;
+                colourRight = 1;
+                colourLeft = 1;
             }
+            // if the cell has a wall then it adds black border and removes colour border
             if (Objects.equals(cell.getWalls().get("N"), "T")) {
                 top = 3;
                 if (maze.getSize() != 25) {
                 top = 1;
                 }
-                redTop = 0;
+                colourTop = 0;
             }
             if (Objects.equals(cell.getWalls().get("S"), "T")) {
                 bottom = 3;
                 if (maze.getSize() != 25) {
                     bottom = 1;
                 }
-                redBottom = 0;
+                colourBottom = 0;
             }
             if (Objects.equals(cell.getWalls().get("E"), "T")) {
                 right = 3;
                 if (maze.getSize() != 25) {
                     right = 1;
                 }
-                redRight = 0;
+                colourRight = 0;
             }
             if (Objects.equals(cell.getWalls().get("W"), "T")) {
                 left = 3;
                 if (maze.getSize() != 25) {
                     left = 1;
                 }
-                redLeft = 0;
+                colourLeft = 0;
             }
-            Border blackBorder = BorderFactory.createMatteBorder(top, left, bottom, right, Color.black);
-            Border redBorder = BorderFactory.createMatteBorder(redTop, redLeft, redBottom, redRight, cell.getColour());
 
-            CompoundBorder compoundBorder = new CompoundBorder(blackBorder, redBorder);
+            // creates black border
+            Border blackBorder = BorderFactory.createMatteBorder(top, left, bottom, right, Color.black);
+            // creates colour border
+            Border colourBorder = BorderFactory.createMatteBorder(colourTop, colourLeft, colourBottom, colourRight, cell.getColour());
+
+            // merges black and colour border
+            CompoundBorder compoundBorder = new CompoundBorder(blackBorder, colourBorder);
+
+            // sets border to the merged border
             image.setBorder(compoundBorder);
             c.weightx = 0.5;
             c.gridx = cell.getX();
             c.gridy = cell.getY();
+            // adds cell to pane
             pane.add(image, c);
         }
     }
@@ -154,17 +186,22 @@ public class MazeView extends JFrame{
      * Creates a frame to hold options on what to do with the maze.
      */
     public void mazeOptionsFrame() {
+        // create frame and pane
         JFrame mazeFrame = new JFrame();
         JPanel mazePanel = new JPanel();
+        // set frame layout
         setLayout(new BoxLayout(mazeFrame, BoxLayout.PAGE_AXIS));
+        // add panel and make visible
         mazeFrame.add(mazePanel);
         mazeFrame.setLocation(this.frame.getX()-250, this.frame.getY());
         mazeFrame.setSize(250, 255);
         mazeFrame.setVisible(true);
 
+        // size of button
         Dimension dimension = new Dimension();
         dimension.setSize(250, 100);
 
+        // create button to make a new maze
         JButton button = new JButton("New Maze");
         button.setSize(dimension);
         button.setFont(new Font("Serif", Font.PLAIN, 35));
@@ -175,15 +212,20 @@ public class MazeView extends JFrame{
         button.setAlignmentX(CENTER_ALIGNMENT);
         button.setPreferredSize(dimension);
         button.addActionListener(e -> {
-            this.frame.setVisible(false); //you can't see me!
+            // closes and deletes previous maze frame
+            this.frame.setVisible(false);
             this.frame.dispose();
+            // creates new maze frame
             MazeView mazeView = new MazeView(new Maze(maze.getSize()), false);
             mazeView.setLocation(700, 200);
+            // closes and deletes options frame
             mazeFrame.setVisible(false);
             mazeFrame.dispose();
         });
+        // add button
         mazePanel.add(button);
 
+        // create button to solve the maze
         button = new JButton("Click to Solve");
         button.setFont(new Font("Serif", Font.PLAIN, 35));
         button.setBackground(Color.BLACK);
@@ -191,18 +233,25 @@ public class MazeView extends JFrame{
         button.setAlignmentX(CENTER_ALIGNMENT);
         button.setPreferredSize(dimension);
         button.addActionListener(e -> {
-            this.frame.setVisible(false); //you can't see me!
+            // deletes old maze view
+            this.frame.setVisible(false);
             this.frame.dispose();
+
+            // starts the maze solver
             try {
                 new MazeSolver(maze);
             }
+            // ignores an out-of-bounds exception
             catch (Exception ignored){
             }
+            // creates new maze view with the update maze
             MazeView mazeView = new MazeView(maze, true);
             mazeView.setLocation(700, 200);
+            // closes and deletes options frame
             mazeFrame.setVisible(false);
             mazeFrame.dispose();
         });
+        // add button
         mazePanel.add(button);
 
 
@@ -228,20 +277,24 @@ public class MazeView extends JFrame{
     }
 
     /**
-     * Creates a frame to open a new maze view frame with the updated maze that is solved.
+     * Creates a frame to provide options for the solved maze.
      */
     public void solveOptionsFrame() {
+        // create frame and panel
         JFrame solveOptions = new JFrame();
         JPanel solvePanel = new JPanel();
+        // set frame layout and add panel to frame
         setLayout(new BoxLayout(solveOptions, BoxLayout.PAGE_AXIS));
         solveOptions.add(solvePanel);
         solveOptions.setLocation(this.frame.getX()-250, this.frame.getY());
         solveOptions.setSize(250, 145);
         solveOptions.setVisible(true);
 
+        // sets button dimensions
         Dimension dimension = new Dimension();
         dimension.setSize(250, 100);
 
+        // creates button to make a new maze
         JButton button = new JButton("New Maze");
         button.setSize(dimension);
         button.setFont(new Font("Serif", Font.PLAIN, 35));
@@ -252,10 +305,13 @@ public class MazeView extends JFrame{
         button.setAlignmentX(CENTER_ALIGNMENT);
         button.setPreferredSize(dimension);
         button.addActionListener(e -> {
+            // closes and deletes old maze frame
             this.frame.setVisible(false); //you can't see me!
             this.frame.dispose();
+            // creates new maze frame
             MazeView mazeView = new MazeView(new Maze(maze.getSize()), false);
             mazeView.setLocation(700, 200);
+            // closes and deletes previous options frame
             solveOptions.setVisible(false);
             solveOptions.dispose();
         });
@@ -284,20 +340,24 @@ public class MazeView extends JFrame{
 
 
     /**
-     * Creates a frame to open a new maze view frame with the updated maze that is solved.
+     * Creates a frame to display the description of the maze solver results.
+     *
+     * @param text the description text to display
      */
     public void descriptionFrame(String text) {
+        // create frame and panel
         JFrame descriptionFrame = new JFrame();
         JPanel descriptionPanel = new JPanel();
         setLayout(new BoxLayout(descriptionFrame, BoxLayout.PAGE_AXIS));
         descriptionFrame.add(descriptionPanel);
         descriptionFrame.setLocation(this.frame.getX() - 400, this.frame.getY() + 500);
-        descriptionFrame.setSize(400, 225);
+        descriptionFrame.setSize(400, 235);
         descriptionFrame.setVisible(true);
 
         Dimension dimension = new Dimension();
         dimension.setSize(350, 250);
 
+        // new description set to given text
         JTextArea description = new JTextArea(text);
         description.setFont(new Font("Serif", Font.PLAIN, 20));
         description.setForeground(Color.black);

@@ -14,3 +14,4 @@ is closer to the end cell.
 Increase size of maze in maze solver. Right now StackOverflowException occurs on bigger mazes, so I would have to handle
 that probably by using multithreading
 
+Handle exceptions more
