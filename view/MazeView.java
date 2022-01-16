@@ -159,13 +159,32 @@ public class MazeView extends JFrame{
         setLayout(new BoxLayout(mazeFrame, BoxLayout.PAGE_AXIS));
         mazeFrame.add(mazePanel);
         mazeFrame.setLocation(this.frame.getX()-250, this.frame.getY());
-        mazeFrame.setSize(250, 360);
+        mazeFrame.setSize(250, 255);
         mazeFrame.setVisible(true);
 
         Dimension dimension = new Dimension();
         dimension.setSize(250, 100);
 
-        JButton button = new JButton("Click to Solve");
+        JButton button = new JButton("New Maze");
+        button.setSize(dimension);
+        button.setFont(new Font("Serif", Font.PLAIN, 35));
+        button.setMinimumSize(dimension);
+        button.setMaximumSize(dimension);
+        button.setBackground(Color.BLACK);
+        button.setForeground(Color.WHITE);
+        button.setAlignmentX(CENTER_ALIGNMENT);
+        button.setPreferredSize(dimension);
+        button.addActionListener(e -> {
+            this.frame.setVisible(false); //you can't see me!
+            this.frame.dispose();
+            MazeView mazeView = new MazeView(new Maze(maze.getSize()), false);
+            mazeView.setLocation(700, 200);
+            mazeFrame.setVisible(false);
+            mazeFrame.dispose();
+        });
+        mazePanel.add(button);
+
+        button = new JButton("Click to Solve");
         button.setFont(new Font("Serif", Font.PLAIN, 35));
         button.setBackground(Color.BLACK);
         button.setForeground(Color.WHITE);
@@ -186,25 +205,9 @@ public class MazeView extends JFrame{
         });
         mazePanel.add(button);
 
-        button = new JButton("New Maze");
-        button.setSize(dimension);
-        button.setFont(new Font("Serif", Font.PLAIN, 35));
-        button.setMinimumSize(dimension);
-        button.setMaximumSize(dimension);
-        button.setBackground(Color.BLACK);
-        button.setForeground(Color.WHITE);
-        button.setAlignmentX(CENTER_ALIGNMENT);
-        button.setPreferredSize(dimension);
-        button.addActionListener(e -> {
-            this.frame.setVisible(false); //you can't see me!
-            this.frame.dispose();
-            MazeView mazeView = new MazeView(new Maze(maze.getSize()), false);
-            mazeView.setLocation(700, 200);
-            mazeFrame.setVisible(false);
-            mazeFrame.dispose();
-        });
-        mazePanel.add(button);
 
+
+        /* Code for a back to menu button
         button = new JButton("Back to Menu");
         button.setSize(dimension);
         button.setFont(new Font("Serif", Font.PLAIN, 35));
@@ -221,6 +224,7 @@ public class MazeView extends JFrame{
             mazeFrame.dispose();
         });
         mazePanel.add(button);
+         */
     }
 
     /**
@@ -232,7 +236,7 @@ public class MazeView extends JFrame{
         setLayout(new BoxLayout(solveOptions, BoxLayout.PAGE_AXIS));
         solveOptions.add(solvePanel);
         solveOptions.setLocation(this.frame.getX()-250, this.frame.getY());
-        solveOptions.setSize(250, 255);
+        solveOptions.setSize(250, 145);
         solveOptions.setVisible(true);
 
         Dimension dimension = new Dimension();
@@ -257,23 +261,27 @@ public class MazeView extends JFrame{
         });
         solvePanel.add(button);
 
-        button = new JButton("Back to Menu");
-        button.setSize(dimension);
-        button.setFont(new Font("Serif", Font.PLAIN, 35));
-        button.setMinimumSize(dimension);
-        button.setMaximumSize(dimension);
-        button.setBackground(Color.BLACK);
-        button.setForeground(Color.WHITE);
-        button.setAlignmentX(CENTER_ALIGNMENT);
-        button.setPreferredSize(dimension);
-        button.addActionListener(e -> {
-            this.frame.setVisible(false); //you can't see me!
-            this.frame.dispose();
-            solveOptions.setVisible(false);
-            solveOptions.dispose();
-        });
-        solvePanel.add(button);
+
+        /* Code for a back to menu button
+          button = new JButton("Back to Menu");
+                  button.setSize(dimension);
+                  button.setFont(new Font("Serif", Font.PLAIN, 35));
+                  button.setMinimumSize(dimension);
+                  button.setMaximumSize(dimension);
+                  button.setBackground(Color.BLACK);
+                  button.setForeground(Color.WHITE);
+                  button.setAlignmentX(CENTER_ALIGNMENT);
+                  button.setPreferredSize(dimension);
+                  button.addActionListener(e -> {
+                      this.frame.setVisible(false); //you can't see me!
+                      this.frame.dispose();
+                      solveOptions.setVisible(false);
+                      solveOptions.dispose();
+                  });
+                  solvePanel.add(button);
+         */
     }
+
 
     /**
      * Creates a frame to open a new maze view frame with the updated maze that is solved.

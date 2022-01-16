@@ -1,14 +1,14 @@
 package MazeAlgorithm;
 
-import view.View;
+import model.Maze;
+import view.MazeView;
 
 import javax.swing.*;
 
 public class MazeAlgorithm {
     public static void main(String[] args) {
-        View view = new View();
-        view.setLocation(700, 200);
-        view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        view.setVisible(true);
+        MazeView mazeView = new MazeView(new Maze(25), false);
+        mazeView.setLocation(700, 200);
+        mazeView.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

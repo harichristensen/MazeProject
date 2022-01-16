@@ -2,7 +2,6 @@ package model;
 
 import view.ImageCache;
 
-import javax.swing.*;
 import java.util.*;
 
 public class Maze implements GameInfoProvider{
@@ -53,7 +52,9 @@ public class Maze implements GameInfoProvider{
             cells.add(x, list);
         }
         randomizeMaze();
-        Cell endCell = cells.get(size-1).get(size-1);
+        Cell initialCell = cells.get(0).get(0);
+        initialCell.removeWall("E");
+        initialCell.removeWall("S");
     }
 
     /**
@@ -134,14 +135,6 @@ public class Maze implements GameInfoProvider{
         return newMaze;
     }
 
-    /**
-     * Invoke mazeChanged on all the observers of the maze.
-     */
-    private void notifyObservers() {
-        for (MazeObserver obs : observers) {
-            obs.mazeChanged();
-        }
-    }
 
     public int randomInt(int min, int max) {
         int range = max - min + 1;
@@ -152,7 +145,7 @@ public class Maze implements GameInfoProvider{
 
         for (List<Cell> cellList: getCellList()) {
             for (Cell cell: cellList) {
-                int change = randomInt(0, 8);
+                int change = randomInt(0, 14);
                 while (change != 0) {
                     int wall = randomInt(1, 4);
                     change = randomInt(0, 1);
