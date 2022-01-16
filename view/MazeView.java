@@ -35,6 +35,9 @@ public class MazeView extends JFrame{
             mazeOptionsFrame();
         } else {
             solveOptionsFrame();
+            descriptionFrame("The purple path is the path found by the recursive maze solver. The red" +
+                    "cells are cells that were visited and found to be a dead end. If the maze is impossible there " +
+                    "will be no purple path and 'Impossible maze' will be printed.");
         }
 
     }
@@ -270,6 +273,34 @@ public class MazeView extends JFrame{
             solveOptions.dispose();
         });
         solvePanel.add(button);
+    }
+
+    /**
+     * Creates a frame to open a new maze view frame with the updated maze that is solved.
+     */
+    public void descriptionFrame(String text) {
+        JFrame descriptionFrame = new JFrame();
+        JPanel descriptionPanel = new JPanel();
+        setLayout(new BoxLayout(descriptionFrame, BoxLayout.PAGE_AXIS));
+        descriptionFrame.add(descriptionPanel);
+        descriptionFrame.setLocation(this.frame.getX() - 400, this.frame.getY() + 500);
+        descriptionFrame.setSize(400, 225);
+        descriptionFrame.setVisible(true);
+
+        Dimension dimension = new Dimension();
+        dimension.setSize(350, 250);
+
+        JTextArea description = new JTextArea(text);
+        description.setFont(new Font("Serif", Font.PLAIN, 20));
+        description.setForeground(Color.black);
+        description.setWrapStyleWord(true);
+        description.setLineWrap(true);
+        description.setEditable(false);
+        description.setCursor(null);
+        description.setOpaque(false);
+        description.setFocusable(false);
+        description.setSize(dimension);
+        descriptionPanel.add(description);
     }
 
 }

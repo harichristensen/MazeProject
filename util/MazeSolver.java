@@ -4,7 +4,6 @@ import model.Cell;
 import model.Maze;
 import view.MazeView;
 
-import javax.swing.*;
 import java.util.Stack;
 
 public class MazeSolver{
@@ -12,7 +11,6 @@ public class MazeSolver{
     protected Maze maze;
     protected String result;
     protected MazeView mazeView;
-    protected Timer solverDelay;
 
     /**
      * Initialize Maze Solver.
@@ -55,8 +53,6 @@ public class MazeSolver{
                 }
 
                 // At end position
-                System.out.println(cell.getItem());
-
                 Cell added = cells.push(cell.getNeighbours().get(cell.getNeighbours().size()-1));
                 added.removeNeighbour(cell);
                 cell.removeNeighbour(added);
