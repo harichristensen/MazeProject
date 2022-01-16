@@ -154,7 +154,7 @@ public class MazeView extends JFrame{
         setLayout(new BoxLayout(frame, BoxLayout.PAGE_AXIS));
         frame.add(panel);
         frame.setLocation(this.frame.getX()-250, this.frame.getY());
-        frame.setSize(250, 255);
+        frame.setSize(250, 360);
         frame.setVisible(true);
 
         Dimension dimension = new Dimension();
@@ -191,6 +191,23 @@ public class MazeView extends JFrame{
             this.frame.dispose();
             MazeView mazeView = new MazeView(new Maze(maze.getSize()), false);
             mazeView.setLocation(700, 200);
+            frame.setVisible(false);
+            frame.dispose();
+        });
+        panel.add(button);
+
+        button = new JButton("Back to Menu");
+        button.setSize(dimension);
+        button.setFont(new Font("Serif", Font.PLAIN, 35));
+        button.setMinimumSize(dimension);
+        button.setMaximumSize(dimension);
+        button.setBackground(Color.BLACK);
+        button.setForeground(Color.WHITE);
+        button.setAlignmentX(CENTER_ALIGNMENT);
+        button.setPreferredSize(dimension);
+        button.addActionListener(e -> {
+            this.frame.setVisible(false); //you can't see me!
+            this.frame.dispose();
             frame.setVisible(false);
             frame.dispose();
         });
