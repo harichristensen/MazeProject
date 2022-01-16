@@ -1,5 +1,7 @@
 package model;
 
+import util.ImageCache;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -187,8 +189,13 @@ public class Cell {
     public ImageIcon getCellImage() {
         // initialize image
         ImageIcon image;
+        // Initial and end cell
+        if((x == 0 && y==0) || (x== maze.getSize()-1 && y== maze.getSize()-1)) {
+            image = maze.getImages().getImage("yellowcell.png");
+            this.colour = new Color(184, 150, 0);
+        }
         // if solver has not visited or removed this cell
-        if (!visited && !removed) {
+        else if (!visited && !removed) {
             image = maze.getImages().getImage("pinkcell.png");
             this.colour= new Color(249,148,179);
         }

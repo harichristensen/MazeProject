@@ -1,19 +1,17 @@
 package model;
 
-import view.ImageCache;
+import util.ImageCache;
 
 import java.util.*;
 
-public class Maze implements GameInfoProvider{
+public class Maze{
+    // 2D list of cells
     protected List<List<Cell>> cells;
+
+    // size of maze
     protected int size;
 
-    /** If the maze has just been created */
-    protected boolean newMaze;
-
-    /** The list of observers to be notified whenever the maze changes. */
-    protected List<MazeObserver> observers;
-
+    // Cache of images for cells
     protected ImageCache imageCache;
 
     /**
@@ -22,18 +20,20 @@ public class Maze implements GameInfoProvider{
      * @param size the size of the maze
      */
     public Maze(int size) {
+        // Reset in case maze size changes
         ImageCache.reset();
+        // Define attributes
         this.imageCache = ImageCache.getInstance(size);
         this.size = size;
+
+        // Create arraylist the size of the maze
         this.cells = new ArrayList<>(size);
-
-
         for (int i = 0; i < size; i++) {
             cells.add(new ArrayList<>());
         }
+
         createMaze(size);
 
-        observers = new LinkedList<>();
 
     }
 
@@ -43,18 +43,27 @@ public class Maze implements GameInfoProvider{
      * @param size the size of the maze
      */
     public void createMaze(int size) {
+        // for every x up to size
         for (int x = 0; x < size; x++) {
+            // create list to hold y cells
             List<Cell> list = new ArrayList<>();
+            // for every y up to size
             for (int y = 0; y < size; y++) {
                 Cell newCell = new Cell(x, y, this);
                 list.add(newCell);
             }
+            // add list to x coordinate
             cells.add(x, list);
         }
+        // randomize the maze walls
         randomizeMaze();
+        // set first and last cell to not have walls to lower chance of instance impossible mazes
         Cell initialCell = cells.get(0).get(0);
         initialCell.removeWall("E");
         initialCell.removeWall("S");
+        Cell endCell = cells.get(size-1).get(size-1);
+        endCell.removeWall("W");
+        endCell.removeWall("N");
     }
 
     /**
@@ -83,72 +92,39 @@ public class Maze implements GameInfoProvider{
         return size;
     }
 
-    public static void main(String[] args) {
-        Maze testmaze = new Maze(100);
-        System.out.println(testmaze.cells.size());
-        for (int x = 0; x < 100; x++) {
-            for (int y = 0; y < 100; y++) {
-                System.out.println(testmaze.getCell(x,y).getItem());
-            }
-        }
-     }
-
     /**
-     * Returns current instance of maze
-     *
-     */
-    public Maze getMaze() {
-        return this;
-    }
-
-    /**
-     * Add observer to the list of observers.
-     *
-     * @param observer an observer of the maze
-     */
-    public void addObserver(MazeObserver observer) {
-        observers.add(observer);
-    }
-
-    /**
-     * Set new maze status
-     *
-     * @param status the new status of the maze
-     */
-    public void setNewMaze(boolean status) {
-        this.newMaze = status;
-    }
-
-    /**
-     * get size of maze
+     * Gets maze ImageCache instance
      *
      */
     public ImageCache getImages() {
         return imageCache;
     }
 
-        /**
-         * Get new maze status
-         *
-         */
-    public boolean getNewMaze() {
-        return newMaze;
-    }
-
-
+    /**
+     * Returns random int between a min and max
+     *
+     */
     public int randomInt(int min, int max) {
         int range = max - min + 1;
         return (int)(Math.random() * range) + min;
     }
 
+    /**
+     * Randomizes the cell walls
+     *
+     */
     public void randomizeMaze() {
 
         for (List<Cell> cellList: getCellList()) {
             for (Cell cell: cellList) {
+                // The chance that determines if one of the cell's walls will be removed
                 int change = randomInt(0, 14);
                 while (change != 0) {
+                    // which wall to be removed
                     int wall = randomInt(1, 4);
+                    // if another of the cell's walls will be removed
                     change = randomInt(0, 1);
+                    // removes wall
                     switch (wall) {
                         case 1 -> cell.removeWall("N");
                         case 2 -> cell.removeWall("S");

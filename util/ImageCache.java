@@ -1,4 +1,4 @@
-package view;
+package util;
 
 import java.awt.*;
 import java.util.HashMap;
