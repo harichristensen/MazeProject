@@ -1,7 +1,5 @@
 package model;
 
-import view.ImageCache;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
@@ -23,13 +21,7 @@ public class Cell {
     private static final Hashtable<String, String> wallList = new Hashtable<>();
 
     protected boolean visited;
-
-
-    /** How frequently (in terms of ticks) the cell is to change. */
-    public static final int CHANGE_FREQ = 4;
-
-    /** A count of the number of ticks since creation. */
-    private int tickCount;
+    protected boolean removed;
 
     /**
      * Initialize cell.
@@ -41,6 +33,7 @@ public class Cell {
         this.x = x;
         this.y = y;
         this.visited=false;
+        this.removed=false;
 
 
 
@@ -53,7 +46,6 @@ public class Cell {
 
         this.maze = maze;
 
-        int tickCount = 0;
             }
 
     /**
@@ -148,12 +140,13 @@ public class Cell {
     }
 
     /**
-     * Return if cell has been visited or not
+     * Set visited to true
      *
      */
-    public boolean getVisited() {
-        return visited;
+    public void setRemoved() {
+        this.removed = true;
     }
+
 
     /**
      * Return a string of information of the cell
@@ -169,14 +162,16 @@ public class Cell {
      *
      */
     public ImageIcon getCellImage() {
-        if (visited) {
-            this.imageIcon = maze.getImages().getImage("redcell.png");
-            this.colour = Color.red;
-
-        }
-        else {
+        if (!visited && !removed) {
             this.imageIcon = maze.getImages().getImage("pinkcell.png");
             this.colour= new Color(249,148,179);
+        } else if (removed) {
+            this.imageIcon = maze.getImages().getImage("redcell.png");
+            this.colour = Color.red;
+        }
+        else {
+            this.imageIcon = maze.getImages().getImage("purplecell.png");
+            this.colour = new Color(72,4,66);
         }
         return imageIcon;
     }

@@ -1,7 +1,6 @@
 package view;
 
 import java.util.Objects;
-import java.util.Random;
 import model.Cell;
 import model.Maze;
 import util.MazeSolver;
@@ -172,7 +171,11 @@ public class MazeView extends JFrame{
         button.addActionListener(e -> {
             this.frame.setVisible(false); //you can't see me!
             this.frame.dispose();
-            new MazeSolver(this, maze);
+            try {
+                new MazeSolver(this, maze);
+            }
+            catch (Exception ignored){
+            }
             MazeView mazeView = new MazeView(maze, true);
             mazeView.setLocation(700, 200);
             mazeFrame.setVisible(false);

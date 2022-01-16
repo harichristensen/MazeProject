@@ -74,16 +74,6 @@ public class Maze implements GameInfoProvider{
     }
 
     /**
-     * Remove wall from cell and adjacent cell
-     *
-     * @param cell main cell to remove wall from
-     * @param wall which wall to remove
-     */
-    public void removeWall(Cell cell, String wall) {
-        cell.removeWall(wall);
-    }
-
-    /**
      * get size of maze
      *
      */
@@ -161,7 +151,7 @@ public class Maze implements GameInfoProvider{
 
         for (List<Cell> cellList: getCellList()) {
             for (Cell cell: cellList) {
-                int change = randomInt(0, 4);
+                int change = randomInt(0, 8);
                 while (change != 0) {
                     int wall = randomInt(1, 4);
                     change = randomInt(0, 1);
