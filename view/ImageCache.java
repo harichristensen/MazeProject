@@ -65,4 +65,8 @@ public class ImageCache {
         }
         return image;
     }
+
+    public static void reset() {
+        instance = null;
+    }
 }

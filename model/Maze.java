@@ -23,6 +23,7 @@ public class Maze implements GameInfoProvider{
      * @param size the size of the maze
      */
     public Maze(int size) {
+        ImageCache.reset();
         this.imageCache = ImageCache.getInstance(size);
         this.size = size;
         this.cells = new ArrayList<>(size);
