@@ -122,7 +122,8 @@ public class Maze{
                 while (change != 0) {
                     // which wall to be removed
                     int wall = randomInt(1, 4);
-                    // if another of the cell's walls will be removed
+                    // if another of the cell's walls will be removed having this chance lower means a more traditional
+                    // looking maze
                     change = randomInt(0, 1);
                     // removes wall
                     switch (wall) {

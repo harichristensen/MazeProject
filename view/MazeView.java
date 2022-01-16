@@ -194,7 +194,7 @@ public class MazeView extends JFrame{
             this.frame.setVisible(false); //you can't see me!
             this.frame.dispose();
             try {
-                new MazeSolver(this, maze);
+                new MazeSolver(maze);
             }
             catch (Exception ignored){
             }
