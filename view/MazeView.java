@@ -52,7 +52,7 @@ public class MazeView extends JFrame{
             mazeOptionsFrame();
         } else {
             solveOptionsFrame();
-            descriptionFrame("The golden cells are the start and end cells (top right to top left). " +
+            descriptionFrame("The golden cells are the start and end cells (top left to bottom right). " +
                     "The purple path is the path found by the recursive maze solver. The red" +
                     "cells are cells that were visited and found to be a dead end. If the maze is impossible there " +
                     "will be no purple path and 'Impossible maze' will be printed.");
