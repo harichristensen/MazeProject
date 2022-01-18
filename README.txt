@@ -12,6 +12,17 @@ could give the opposite result. So I changed line 65 to:
 Line 65 after: Cell added = cells.push(cell.getNeighbours().get(cell.getNeighbours().size()-1));
 Suddenly my best path algorithm worked, and it searched the least amount of cells before reaching the end of the maze.
 
+At the beginning of creating this project I had an option to choose the size of the maze. However, my maze solving
+algorithm could not handle larger mazes, so I had to remove the larger options until I have time to multithread the
+algorithm.
+
+Main Modules:
+control: holds the controller class, controls and connects view and util modules
+jar-file: hold the executable jar file for the project
+MazeAlgorithm: the main module, starts the controller
+model: holds the maze and cell classes
+util: holds the maze solver class
+view: holds the maze view class
 
 
 
