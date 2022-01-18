@@ -5,7 +5,6 @@ import java.util.Objects;
 import control.Controller;
 import model.Cell;
 import model.Maze;
-import util.MazeSolver;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -40,6 +39,7 @@ public class MazeView extends JFrame{
     /**
      * Initialize MazeView.
      *
+     * @param controller The controller of the algorithm
      * @param maze the maze to be displayed
      * @param done if the maze has been solved and updated
      */
@@ -223,8 +223,7 @@ public class MazeView extends JFrame{
             this.frame.setVisible(false);
             this.frame.dispose();
             // creates new maze frame
-            MazeView mazeView = new MazeView(controller, new Maze(maze.getSize()), false);
-            mazeView.setLocation(700, 200);
+            controller.newMazeView(controller, new Maze(maze.getSize()), false);
             // closes and deletes options frame
             mazeFrame.setVisible(false);
             mazeFrame.dispose();
@@ -247,8 +246,7 @@ public class MazeView extends JFrame{
             // starts the maze solver
             controller.startSolver(maze);
             // creates new maze view with the update maze
-            MazeView mazeView = new MazeView(controller, maze, true);
-            mazeView.setLocation(700, 200);
+            controller.newMazeView(controller, maze, true);
             // closes and deletes options frame
             mazeFrame.setVisible(false);
             mazeFrame.dispose();
@@ -311,8 +309,7 @@ public class MazeView extends JFrame{
             this.frame.setVisible(false); //you can't see me!
             this.frame.dispose();
             // creates new maze frame
-            MazeView mazeView = new MazeView(controller, new Maze(maze.getSize()), false);
-            mazeView.setLocation(700, 200);
+            controller.newMazeView(controller, new Maze(maze.getSize()), false);
             // closes and deletes previous options frame
             solveOptions.setVisible(false);
             solveOptions.dispose();
