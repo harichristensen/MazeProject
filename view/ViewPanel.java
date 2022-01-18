@@ -53,8 +53,8 @@ public class ViewPanel extends JPanel {
         button.setForeground(Color.WHITE);
         button.setAlignmentX(CENTER_ALIGNMENT);
         button.addActionListener(e -> {
-            MazeView mazeView = new MazeView(new Maze(size), false);
-            mazeView.setLocation(700, 200);
+            //MazeView mazeView = new MazeView(controller, new Maze(size), false);
+            //mazeView.setLocation(700, 200);
         });
         add(button);
 

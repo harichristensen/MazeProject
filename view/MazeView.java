@@ -1,6 +1,8 @@
 package view;
 
 import java.util.Objects;
+
+import control.Controller;
 import model.Cell;
 import model.Maze;
 import util.MazeSolver;
@@ -32,17 +34,21 @@ public class MazeView extends JFrame{
     // maze to be shown
     protected Maze maze;
 
+    // Controller object
+    protected Controller controller;
+
     /**
      * Initialize MazeView.
      *
      * @param maze the maze to be displayed
      * @param done if the maze has been solved and updated
      */
-    public MazeView(Maze maze, boolean done) {
+    public MazeView(Controller controller, Maze maze, boolean done) {
         // Initialize attributes
         this.done = done;
         this.panel = new JPanel();
         this.maze = maze;
+        this.controller = controller;
 
         // build frame
         build();
@@ -217,7 +223,7 @@ public class MazeView extends JFrame{
             this.frame.setVisible(false);
             this.frame.dispose();
             // creates new maze frame
-            MazeView mazeView = new MazeView(new Maze(maze.getSize()), false);
+            MazeView mazeView = new MazeView(controller, new Maze(maze.getSize()), false);
             mazeView.setLocation(700, 200);
             // closes and deletes options frame
             mazeFrame.setVisible(false);
@@ -239,14 +245,9 @@ public class MazeView extends JFrame{
             this.frame.dispose();
 
             // starts the maze solver
-            try {
-                new MazeSolver(maze);
-            }
-            // ignores an out-of-bounds exception
-            catch (Exception ignored){
-            }
+            controller.startSolver(maze);
             // creates new maze view with the update maze
-            MazeView mazeView = new MazeView(maze, true);
+            MazeView mazeView = new MazeView(controller, maze, true);
             mazeView.setLocation(700, 200);
             // closes and deletes options frame
             mazeFrame.setVisible(false);
@@ -310,7 +311,7 @@ public class MazeView extends JFrame{
             this.frame.setVisible(false); //you can't see me!
             this.frame.dispose();
             // creates new maze frame
-            MazeView mazeView = new MazeView(new Maze(maze.getSize()), false);
+            MazeView mazeView = new MazeView(controller, new Maze(maze.getSize()), false);
             mazeView.setLocation(700, 200);
             // closes and deletes previous options frame
             solveOptions.setVisible(false);
