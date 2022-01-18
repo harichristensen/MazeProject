@@ -1,6 +1,6 @@
 Purpose:
 I created this code to create a maze, display the maze, solve the maze, and then display the solved maze. While it is
-not completely finished, this project highlights my ability to use the model view format and solve a problem
+not completely finished, this project highlights my ability to use the model view control format and solve a problem
 using recursion.
 
 My thoughts while making this project:
