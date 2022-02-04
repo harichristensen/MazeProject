@@ -4,10 +4,10 @@ not completely finished, this project highlights my ability to use the model vie
 using recursion.
 
 SS of what the gui looks like when code is run, or when "New Maze" is clicked
-![](https://raw.githubusercontent.com/harichristensen/MazeProject/master/images/newmaze.PNG)
+https://raw.githubusercontent.com/harichristensen/MazeProject/master/images/newmaze.PNG
 
 SS of when "Solve Maze" is clicked
-![](https://raw.githubusercontent.com/harichristensen/MazeProject/master/images/solvedmaze.PNG)
+https://raw.githubusercontent.com/harichristensen/MazeProject/master/images/solvedmaze.PNG
 
 My thoughts while making this project:
 I could not figure out why my maze solver was searching every cell in the maze until it reached the end of the maze.
