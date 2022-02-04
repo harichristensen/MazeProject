@@ -37,7 +37,7 @@ Handle exceptions more
 
 Make the xml diagram for the project
 
-![New Maze]("https://raw.githubusercontent.com/harichristensen/MazeProject/master/images/newmaze.PNG")
+![New Maze](https://raw.githubusercontent.com/harichristensen/MazeProject/master/images/newmaze.PNG)
 
 
 ![Solved Maze](/images/solvedmaze.png)
