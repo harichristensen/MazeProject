@@ -3,6 +3,12 @@ I created this code to create a maze, display the maze, solve the maze, and then
 not completely finished, this project highlights my ability to use the model view control format and solve a problem
 using recursion.
 
+SS of what the gui looks like when code is run, or when "New Maze" is clicked
+https://raw.githubusercontent.com/harichristensen/MazeProject/master/images/newmaze.PNG
+
+SS of when "Solve Maze" is clicked
+https://raw.githubusercontent.com/harichristensen/MazeProject/master/images/solvedmaze.PNG
+
 My thoughts while making this project:
 I could not figure out why my maze solver was searching every cell in the maze until it reached the end of the maze.
 Originally, I thought that I had to get the neighbour at index 0, so I would never go out of bounds:
@@ -37,7 +43,4 @@ Handle exceptions more
 
 Make the xml diagram for the project
 
-![New Maze](https://raw.githubusercontent.com/harichristensen/MazeProject/master/images/newmaze.PNG)
 
-
-![Solved Maze](/images/solvedmaze.png)
