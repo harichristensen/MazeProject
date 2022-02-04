@@ -37,7 +37,7 @@ Handle exceptions more
 
 Make the xml diagram for the project
 
-![New Maze](newmaze.png)
+![New Maze](images/newmaze.png)
 
 
-![Solved Maze](solvedmaze.png)
+![Solved Maze](images/solvedmaze.png)
