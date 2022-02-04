@@ -36,3 +36,8 @@ that by using multithreading
 Handle exceptions more
 
 Make the xml diagram for the project
+
+![New Maze](newmaze.png)
+
+
+![Solved Maze](solvedmaze.png)
